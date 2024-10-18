@@ -12,12 +12,15 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [webletterList, setWebletterList] = useState([]);
 
   const url = import.meta.env.VITE_APP_SERVER_URL;
   const token = import.meta.env.VITE_APP_API_TOKEN;
+
+  const navigate = useNavigate();
 
   async function getAllWebletters() {
     try {
@@ -39,7 +42,7 @@ function App() {
   }
 
   function openWebletter(id: string) {
-    return window.open(`${url}/webletter/${id}`, "_blank");
+    navigate(`/${id}`);
   }
 
   useEffect(() => {
@@ -54,6 +57,7 @@ function App() {
         pb={10}
         display={"flex"}
         gap={"5px"}
+        pt={"50px"}
       >
         <Input placeholder="Тема письма" />
         <IconButton
