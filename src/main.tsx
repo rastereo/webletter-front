@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { ChakraProvider } from '@chakra-ui/react';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import theme from "./theme.ts";
-import App from "./App.tsx";
+// import App from "./App.tsx";
 import "./index.css";
 import WebletterView from "./pages/WebletterView.tsx";
 
