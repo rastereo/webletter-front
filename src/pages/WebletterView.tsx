@@ -27,7 +27,7 @@ function WebletterView() {
 
   const { pathname } = useLocation();
 
-  const id = pathname.replace("/", "");
+  const id = pathname.replace(/\//g, "");
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
