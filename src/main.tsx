@@ -8,10 +8,10 @@ import "./index.css";
 import WebletterView from "./pages/WebletterView.tsx";
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />
-  },
+  // {
+  //   path: '/',
+  //   element: <App />
+  // },
   {
     path: '/:id',
     element: <WebletterView />
