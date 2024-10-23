@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ResultWebletter } from "../types";
 import {
@@ -29,6 +29,8 @@ function WebletterView() {
 
   const id = pathname.replace("/", "");
 
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
   async function getWebletterInfo() {
     try {
       const data = await fetch(`${url}/api/${id}`);
@@ -43,6 +45,7 @@ function WebletterView() {
 
   async function getText() {
     try {
+      console.log(id);
       const res = await fetch(`${url}/api/${id}/text`);
 
       const { text, misspelledWords, stopWordsInText } = await res.json();
@@ -103,15 +106,13 @@ function WebletterView() {
     return `${month} ${day}`;
   }
 
-  function resizeIFrameToFirContent(event: SyntheticEvent<HTMLIFrameElement>) {
-    const iframe = event.currentTarget;
-
+  function resizeIFrameToFirContent(iframe: HTMLIFrameElement | null) {
     if (iframe) {
       const iframeDoc =
         iframe.contentDocument || iframe.contentWindow?.document;
 
       if (iframeDoc) {
-        iframe.style.width = iframeDoc.body.scrollWidth + "px";
+        iframe.style.height = iframeDoc.body.scrollHeight + 'px';
 
         console.log(iframe.style.height);
       }
@@ -122,6 +123,12 @@ function WebletterView() {
     getWebletterInfo();
     getText();
   }, []);
+
+  useEffect(() => {
+    if (!isText) {
+      resizeIFrameToFirContent(iframeRef.current);
+    }
+  }, [size])
 
   return (
     <>
@@ -246,7 +253,7 @@ function WebletterView() {
             <iframe
               className="webletter__iframe"
               src={`${url}/webletter/${id}`}
-              onLoad={(evt) => resizeIFrameToFirContent(evt)}
+              ref={iframeRef}
             />
           </section>
         )}
