@@ -122,6 +122,7 @@ function WebletterView() {
   useEffect(() => {
     getWebletterInfo();
     getText();
+    resizeIFrameToFirContent(iframeRef.current);
   }, []);
 
   useEffect(() => {
@@ -254,6 +255,7 @@ function WebletterView() {
               className="webletter__iframe"
               src={`${url}/webletter/${id}`}
               ref={iframeRef}
+              scrolling="no"
             />
           </section>
         )}
