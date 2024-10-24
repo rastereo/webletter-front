@@ -111,6 +111,7 @@ function WebletterView() {
       const iframeDoc =
         iframe.contentDocument || iframe.contentWindow?.document;
 
+      console.log(iframeDoc);
       if (iframeDoc) {
         iframe.style.height = iframeDoc.body.scrollHeight + 'px';
 
@@ -122,7 +123,6 @@ function WebletterView() {
   useEffect(() => {
     getWebletterInfo();
     getText();
-    resizeIFrameToFirContent(iframeRef.current);
   }, []);
 
   useEffect(() => {
@@ -256,6 +256,7 @@ function WebletterView() {
               src={`${url}/webletter/${id}`}
               ref={iframeRef}
               scrolling="no"
+              onLoad={() => resizeIFrameToFirContent(iframeRef.current)}
             />
           </section>
         )}
