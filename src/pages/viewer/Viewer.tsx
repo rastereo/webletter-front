@@ -1,0 +1,144 @@
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
+import ViewerHeader from "../../components/ViewerHeader/ViewerHeader";
+import Preview from "../../components/Preview/Preview";
+import Info from "../../components/Info/Info";
+import Webletter from "../../components/Webletter/Webletter";
+import PlainText from "../../components/PlainText/PlainText";
+import Loader from "../../components/Loader/Loader";
+
+import { ResultWebletter } from "../../types";
+
+import "./Viewer.css";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+
+function Viewer() {
+  const [info, setInfo] = useState<ResultWebletter | null>(null);
+  const [size, setSize] = useState<number | null>(null);
+  const [text, setText] = useState<string | null>(null);
+  const [isText, setIsText] = useState<boolean>(false);
+  const [misspelledWords, setMisspelledWords] = useState<string[] | []>([]);
+  const [stopWords, setStopWords] = useState<string[] | []>([]);
+  const [isMisspelledWords, setIsMisspelledWords] = useState<boolean>(false);
+  const [isStopWords, setIsStopWords] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const url = import.meta.env.VITE_APP_SERVER_URL;
+
+  const { pathname } = useLocation();
+
+  const id = pathname.replace(/\//g, "");
+
+  async function getWebletterInfo() {
+    try {
+      const data: Response = await fetch(`${url}/api/${id}`);
+
+      if (!data.ok) {
+        const errorData = await data.json();
+
+        console.log(errorData);
+
+        throw new Error(errorData.message);
+      }
+
+      const info = await data.json();
+
+      setInfo(info);
+    } catch (err) {
+        setErrorMessage((err as Error).message || 'Что-то пошло не так, попробуйте позже');
+      console.log(err);
+    }
+  }
+
+  async function getText() {
+    try {
+      const res = await fetch(`${url}/api/${id}/text`);
+
+      const { text, misspelledWords, stopWordsInText } = await res.json();
+
+      setText(text);
+      setMisspelledWords(misspelledWords);
+      setStopWords(stopWordsInText);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function handleDesktopButton() {
+    setSize(null);
+    setIsText(false);
+  }
+
+  function handleMobileButton(size: number) {
+    setSize(size);
+    setIsText(false);
+  }
+
+  function handleTextButton() {
+    setIsText(true);
+    setSize(null);
+  }
+
+  function handleCheckboxMisspelledWords() {
+    setIsMisspelledWords(!isMisspelledWords);
+    setIsStopWords(false);
+  }
+
+  function handleCheckboxStopWords() {
+    setIsStopWords(!isStopWords);
+    setIsMisspelledWords(false);
+  }
+
+  useEffect(() => {
+    getWebletterInfo();
+  }, []);
+
+  useEffect(() => {
+    if (!text && isText) getText();
+  }, [isText]);
+
+  return info ? (
+    <>
+      <ViewerHeader
+        size={size}
+        isText={isText}
+        handleDesktopButton={handleDesktopButton}
+        handleMobileButton={handleMobileButton}
+        handleTextButton={handleTextButton}
+      />
+      <main className="viewer" style={{ width: size ? size + "px" : "100%" }}>
+        <Info uploadDate={info.upload_date} size={info.size} />
+        <Preview
+          size={size}
+          exhibition={info.exhibition || "Выставка"}
+          upload_date={info.upload_date}
+          title={info.title}
+          preheader={info.preheader}
+        />
+        {isText ? (
+          <PlainText
+            text={text ? text : ""}
+            misspelledWords={misspelledWords}
+            stopWords={stopWords}
+            isText={isText}
+            isMisspelledWords={isMisspelledWords}
+            isStopWords={isStopWords}
+            handleIsMisspelledWords={handleCheckboxMisspelledWords}
+            handleIsStopWords={handleCheckboxStopWords}
+          />
+        ) : (
+          <Webletter id={id} isText={isText} size={size} url={url} />
+        )}
+      </main>
+    </>
+  ) : (
+    errorMessage ? (
+      <ErrorMessage message={errorMessage} />
+    ) : (
+      <Loader />
+    )
+  );
+}
+
+export default Viewer;

@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import theme from "./theme.ts";
 // import App from "./App.tsx";
 import "./index.css";
-import WebletterView from "./pages/WebletterView.tsx";
+import Viewer from "./pages/viewer/Viewer.tsx";
 
 const router = createBrowserRouter([
   // {
@@ -14,13 +14,13 @@ const router = createBrowserRouter([
   // },
   {
     path: '/:id',
-    element: <WebletterView />
+    element: <Viewer />
   }
 ]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={theme} resetCSS>
       <RouterProvider router={router} />
     </ChakraProvider>
   </StrictMode>
