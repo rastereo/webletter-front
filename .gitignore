@@ -25,3 +25,6 @@ dist-ssr
 
 .env
 .vscode
+
+tsconfig.node.tsbuildinfo
+tsconfig.app.tsbuildinfo
