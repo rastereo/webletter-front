@@ -119,20 +119,21 @@ function Viewer() {
           preheader={info.preheader}
         />
         <Webletter id={id} isText={isText} size={size} url={url} />
-        {text ? (
-          <PlainText
-            text={text}
-            misspelledWords={misspelledWords}
-            stopWords={stopWords}
-            isText={isText}
-            isMisspelledWords={isMisspelledWords}
-            isStopWords={isStopWords}
-            handleIsMisspelledWords={handleCheckboxMisspelledWords}
-            handleIsStopWords={handleCheckboxStopWords}
-          />
-        ) : (
-          <Loader />
-        )}
+        {isText &&
+          (text ? (
+            <PlainText
+              text={text}
+              misspelledWords={misspelledWords}
+              stopWords={stopWords}
+              isText={isText}
+              isMisspelledWords={isMisspelledWords}
+              isStopWords={isStopWords}
+              handleIsMisspelledWords={handleCheckboxMisspelledWords}
+              handleIsStopWords={handleCheckboxStopWords}
+            />
+          ) : (
+            <Loader />
+          ))}
       </main>
     </>
   ) : errorMessage ? (
