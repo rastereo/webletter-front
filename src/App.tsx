@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   FormControl,
   IconButton,
@@ -10,9 +10,9 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
-import { useNavigate } from "react-router-dom";
+} from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   const [webletterList, setWebletterList] = useState([]);
@@ -25,7 +25,7 @@ function App() {
   async function getAllWebletters() {
     try {
       const res = await fetch(`${url}/api/webletters`, {
-        method: "GET",
+        method: 'GET',
         headers: {
           Authorization: `${token}`,
         },
@@ -52,12 +52,12 @@ function App() {
   return (
     <>
       <FormControl
-        maxWidth={"70%"}
-        margin={"0 auto"}
+        maxWidth={'70%'}
+        margin={'0 auto'}
         pb={10}
-        display={"flex"}
-        gap={"5px"}
-        pt={"50px"}
+        display={'flex'}
+        gap={'5px'}
+        pt={'50px'}
       >
         <Input placeholder="Тема письма" />
         <IconButton
@@ -70,7 +70,7 @@ function App() {
       <TableContainer
         maxWidth="100%"
         whiteSpace="wrap"
-        style={{ padding: "0 20px" }}
+        style={{ padding: '0 20px' }}
       >
         <Table variant="simple">
           <Thead>
@@ -100,11 +100,11 @@ function App() {
                   key={id}
                   onClick={() => openWebletter(id)}
                   sx={{
-                    cursor: "pointer",
-                    transition: "all 0.4s linear",
-                    "&:hover": {
+                    cursor: 'pointer',
+                    transition: 'all 0.4s linear',
+                    '&:hover': {
                       opacity: 0.5,
-                      backgroundColor: "#d7d7d7",
+                      backgroundColor: '#d7d7d7',
                     },
                   }}
                 >
@@ -113,9 +113,9 @@ function App() {
                       src={`${url}/webletter/${id}/${banner}`}
                       alt={exhibition}
                       style={{
-                        maxWidth: "100px",
-                        height: "100%",
-                        objectFit: "cover",
+                        maxWidth: '100px',
+                        height: '100%',
+                        objectFit: 'cover',
                       }}
                     />
                   </Td>
@@ -135,7 +135,7 @@ function App() {
                     <p>
                       {`${new Date(upload_date)
                         .toLocaleTimeString()
-                        .slice(0, -3)}`}{" "}
+                        .slice(0, -3)}`}{' '}
                       {`${new Date(upload_date).toLocaleDateString()}`}
                     </p>
                   </Td>

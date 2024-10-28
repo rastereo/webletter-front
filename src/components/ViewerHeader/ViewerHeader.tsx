@@ -1,9 +1,9 @@
-import { IconButton } from "@chakra-ui/react";
-import { FaMobileAlt, FaDesktop } from "react-icons/fa";
-import { FiFileText } from "react-icons/fi";
+import { IconButton } from '@chakra-ui/react';
+import { FaMobileAlt, FaDesktop } from 'react-icons/fa';
+import { FiFileText } from 'react-icons/fi';
 
-import "./ViewerHeader.css";
-import ShareButton from "../ShareButton/ShareButton";
+import './ViewerHeader.css';
+import ShareButton from '../ShareButton/ShareButton';
 
 interface ViewerHeaderProps {
   id: string;
@@ -27,7 +27,7 @@ function ViewerHeader({
   return (
     <header className="viewer-header">
       <IconButton
-        variant={!size && !isText ? "solid" : "outline"}
+        variant={!size && !isText ? 'solid' : 'outline'}
         colorScheme="teal"
         aria-label="Desktop size"
         size="lg"
@@ -36,7 +36,7 @@ function ViewerHeader({
         onClick={() => handleDesktopButton()}
       />
       <IconButton
-        variant={size ? "solid" : "outline"}
+        variant={size ? 'solid' : 'outline'}
         colorScheme="teal"
         aria-label="Mobile size"
         size="lg"
@@ -45,7 +45,7 @@ function ViewerHeader({
         onClick={() => handleMobileButton(375)}
       />
       <IconButton
-        variant={isText ? "solid" : "outline"}
+        variant={isText ? 'solid' : 'outline'}
         colorScheme="teal"
         aria-label="Plain text"
         size="lg"

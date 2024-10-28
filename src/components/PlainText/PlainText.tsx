@@ -1,6 +1,6 @@
-import { Highlight, FormControl, FormLabel, Switch } from "@chakra-ui/react";
+import { Highlight, FormControl, FormLabel, Switch } from '@chakra-ui/react';
 
-import "./PlainText.css";
+import './PlainText.css';
 
 interface PlainTextProps {
   text: string;
@@ -24,7 +24,7 @@ function PlainText({
   handleIsStopWords,
 }: PlainTextProps) {
   return (
-    <section className={`plain-text ${!isText && "hide"}`}>
+    <section className={`plain-text ${!isText && 'hide'}`}>
       <FormControl
         display="flex"
         flexDirection="column"
@@ -57,13 +57,13 @@ function PlainText({
       <p className="plain-text__content">
         <Highlight
           query={
-            isMisspelledWords ? misspelledWords : isStopWords ? stopWords : ""
+            isMisspelledWords ? misspelledWords : isStopWords ? stopWords : ''
           }
           styles={{
-            px: "2",
-            py: "1",
-            rounded: "full",
-            bg: `${isMisspelledWords ? "red.100" : isStopWords && "blue.100"}`,
+            px: '2',
+            py: '1',
+            rounded: 'full',
+            bg: `${isMisspelledWords ? 'red.100' : isStopWords && 'blue.100'}`,
           }}
         >
           {text}

@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import ViewerHeader from "../../components/ViewerHeader/ViewerHeader";
-import Preview from "../../components/Preview/Preview";
-import Info from "../../components/Info/Info";
-import PlainText from "../../components/PlainText/PlainText";
-import Webletter from "../../components/Webletter/Webletter";
-import Loader from "../../components/Loader/Loader";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import ViewerHeader from '../../components/ViewerHeader/ViewerHeader';
+import Preview from '../../components/Preview/Preview';
+import Info from '../../components/Info/Info';
+import PlainText from '../../components/PlainText/PlainText';
+import Webletter from '../../components/Webletter/Webletter';
+import Loader from '../../components/Loader/Loader';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
-import { ResultWebletter } from "../../types";
+import { ResultWebletter } from '../../types';
 
-import "./Viewer.css";
+import './Viewer.css';
 
 function Viewer() {
   const [info, setInfo] = useState<ResultWebletter | null>(null);
@@ -28,7 +28,7 @@ function Viewer() {
 
   const { pathname } = useLocation();
 
-  const id = pathname.replace(/\//g, "");
+  const id = pathname.replace(/\//g, '');
 
   async function getWebletterInfo() {
     try {
@@ -47,7 +47,7 @@ function Viewer() {
       setInfo(info);
     } catch (err) {
       setErrorMessage(
-        (err as Error).message || "Что-то пошло не так, попробуйте позже"
+        (err as Error).message || 'Что-то пошло не так, попробуйте позже'
       );
       console.log(err);
     }
@@ -97,6 +97,12 @@ function Viewer() {
   }, []);
 
   useEffect(() => {
+    if (info?.title) {
+      document.title = `Viewer – ${info?.title}`;
+    }
+  }, [info]);
+
+  useEffect(() => {
     if (!text && isText) getText();
   }, [isText]);
 
@@ -111,11 +117,11 @@ function Viewer() {
         handleMobileButton={handleMobileButton}
         handleTextButton={handleTextButton}
       />
-      <main className="viewer" style={{ width: size ? size + "px" : "100%" }}>
+      <main className="viewer" style={{ width: size ? size + 'px' : '100%' }}>
         <Info uploadDate={info.upload_date} size={info.size} />
         <Preview
           size={size}
-          exhibition={info.exhibition || "Выставка"}
+          exhibition={info.exhibition || 'Выставка'}
           upload_date={info.upload_date}
           title={info.title}
           preheader={info.preheader}

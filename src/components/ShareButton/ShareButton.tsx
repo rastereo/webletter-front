@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import {
   Button,
   Flex,
@@ -13,8 +13,8 @@ import {
   Portal,
   Text,
   useClipboard,
-} from "@chakra-ui/react";
-import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
+} from '@chakra-ui/react';
+import { CheckIcon, CopyIcon } from '@chakra-ui/icons';
 
 interface ShareButton {
   id: string;
@@ -22,7 +22,7 @@ interface ShareButton {
 }
 
 function ShareButton({ id, url }: ShareButton) {
-  const { onCopy, value, setValue, hasCopied } = useClipboard("");
+  const { onCopy, value, setValue, hasCopied } = useClipboard('');
 
   useEffect(() => setValue(`${url}/webletter/${id}`), []);
 
@@ -32,7 +32,7 @@ function ShareButton({ id, url }: ShareButton) {
         <Button
           colorScheme="purple"
           variant="solid"
-          sx={{ position: "absolute", right: 0 }}
+          sx={{ position: 'absolute', right: 0 }}
         >
           Поделиться
         </Button>
@@ -48,7 +48,7 @@ function ShareButton({ id, url }: ShareButton) {
               <IconButton
                 aria-label="Copy link"
                 icon={hasCopied ? <CheckIcon /> : <CopyIcon />}
-                colorScheme={hasCopied ? "green" : "gray"}
+                colorScheme={hasCopied ? 'green' : 'gray'}
                 onClick={onCopy}
               />
             </Flex>

@@ -26,11 +26,11 @@
   position: relative;
 }
 
-.preview__container p {
+/* .preview__container p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
+} */
 
 .preview__wrapper {
   display: flex;

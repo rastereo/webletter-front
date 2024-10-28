@@ -1,4 +1,4 @@
-import "./Preview.css";
+import './Preview.css';
 
 interface PreviewProps {
   size: number | null;
@@ -17,18 +17,18 @@ function Preview({
 }: PreviewProps) {
   function createMonthAndDay(uploadDate: string): string {
     const shortMonth = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
 
     const date = new Date(uploadDate);
@@ -43,27 +43,27 @@ function Preview({
   return (
     <section className="preview">
       {size ? (
-        <div className={`preview__container preview__container_mobile`}>
+        <div className="preview__container preview__container_mobile">
           <div className="preview__wrapper">
-            <p className="preview__name preview__name_mobile">{exhibition}</p>
+            <p className="preview__name preview__name_mobile overflow">{exhibition}</p>
             <p className="preview__date preview__date_mobile">
               {createMonthAndDay(upload_date)}
             </p>
           </div>
-          <p>
+          <p className="overflow">
             <span className="preview__title preview__title_mobile">
               {title}
             </span>
           </p>
-          <p className="preview__preheader preview__preheader_mobile">
+          <p className="preview__preheader preview__preheader_mobile overflow">
             {preheader}
           </p>
         </div>
       ) : (
         <div className="preview__container">
-          <p className="preview__name">{exhibition}</p>
-          <p>
-            <span className="preview__title">{title}</span>{" "}
+          <p className="preview__name overflow">{exhibition}</p>
+          <p className="overflow">
+            <span className="preview__title">{title}</span>{' '}
             <span className="preview__preheader">- {preheader}</span>
           </p>
           <p className="preview__date">

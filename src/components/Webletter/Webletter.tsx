@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import "./Webletter.css";
+import { useEffect, useRef } from 'react';
+import './Webletter.css';
 
 interface WebletterProps {
   id: string;
@@ -17,7 +17,7 @@ function Webletter({ id, url, isText, size }: WebletterProps) {
         iframe.contentDocument || iframe.contentWindow?.document;
 
       if (iframeDoc) {
-        iframe.style.height = iframeDoc.body.scrollHeight + "px";
+        iframe.style.height = iframeDoc.body.scrollHeight + 'px';
       }
     }
   }
@@ -29,7 +29,7 @@ function Webletter({ id, url, isText, size }: WebletterProps) {
   }, [size]);
 
   return (
-    <section className={`webletter ${isText && "hide"}`}>
+    <section className={`webletter ${isText && 'hide'}`}>
       <iframe
         className="webletter__iframe"
         src={`${url}/webletter/${id}`}
