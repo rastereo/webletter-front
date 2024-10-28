@@ -3,11 +3,10 @@ import {
   FormControl,
   FormLabel,
   Switch,
-  Fade,
 } from "@chakra-ui/react";
 
 import "./PlainText.css";
-import Loader from "../Loader/Loader";
+// import Loader from "../Loader/Loader";
 
 interface PlainTextProps {
   text: string;
@@ -30,11 +29,8 @@ function PlainText({
   handleIsMisspelledWords,
   handleIsStopWords,
 }: PlainTextProps) {
-  return !text ? (
-    <Loader />
-  ) : (
-    <Fade in={isText}>
-      <section className="plain-text">
+  return (
+      <section className={`plain-text ${!isText && 'hide'}`}>
         <FormControl
           display="flex"
           flexDirection="column"
@@ -82,7 +78,6 @@ function PlainText({
           </Highlight>
         </p>
       </section>
-    </Fade>
   );
 }
 

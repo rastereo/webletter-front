@@ -4,14 +4,14 @@ import { useLocation } from "react-router-dom";
 import ViewerHeader from "../../components/ViewerHeader/ViewerHeader";
 import Preview from "../../components/Preview/Preview";
 import Info from "../../components/Info/Info";
-import Webletter from "../../components/Webletter/Webletter";
 import PlainText from "../../components/PlainText/PlainText";
+import Webletter from "../../components/Webletter/Webletter";
 import Loader from "../../components/Loader/Loader";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 import { ResultWebletter } from "../../types";
 
 import "./Viewer.css";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 function Viewer() {
   const [info, setInfo] = useState<ResultWebletter | null>(null);
@@ -46,7 +46,9 @@ function Viewer() {
 
       setInfo(info);
     } catch (err) {
-        setErrorMessage((err as Error).message || 'Что-то пошло не так, попробуйте позже');
+      setErrorMessage(
+        (err as Error).message || "Что-то пошло не так, попробуйте позже"
+      );
       console.log(err);
     }
   }
@@ -116,9 +118,10 @@ function Viewer() {
           title={info.title}
           preheader={info.preheader}
         />
-        {isText ? (
+        <Webletter id={id} isText={isText} size={size} url={url} />
+        {text ? (
           <PlainText
-            text={text ? text : ""}
+            text={text}
             misspelledWords={misspelledWords}
             stopWords={stopWords}
             isText={isText}
@@ -128,16 +131,14 @@ function Viewer() {
             handleIsStopWords={handleCheckboxStopWords}
           />
         ) : (
-          <Webletter id={id} isText={isText} size={size} url={url} />
+          <Loader />
         )}
       </main>
     </>
+  ) : errorMessage ? (
+    <ErrorMessage message={errorMessage} />
   ) : (
-    errorMessage ? (
-      <ErrorMessage message={errorMessage} />
-    ) : (
-      <Loader />
-    )
+    <Loader />
   );
 }
 

@@ -29,7 +29,7 @@ function Webletter({ id, url, isText, size }: WebletterProps) {
   }, [size]);
 
   return (
-    <section className="webletter">
+    <section className={`webletter ${isText && 'hide'}`}>
       <iframe
         className="webletter__iframe"
         src={`${url}/webletter/${id}`}

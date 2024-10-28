@@ -1,8 +1,7 @@
+html{
+  overflow-y: overlay;
+}
 body {
-  /* width: 100%;
-  max-width: 1280px;
-  margin: auto; */
-
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
@@ -10,6 +9,12 @@ body {
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
+
+/* *,
+*::before,
+*::after {
+  outline: 2px solid red;
+} */
 
 .root {
   height: 100%;
@@ -22,6 +27,11 @@ body {
 p {
   margin: 0;
   padding: 0;
+}
+
+.hide {
+  display: none;
+  overflow: hidden;
 }
 
 /* * {
