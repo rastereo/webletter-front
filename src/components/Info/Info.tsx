@@ -3,7 +3,6 @@ import { Badge } from "@chakra-ui/react";
 
 import "./Info.css";
 
-
 interface InfoProps {
   uploadDate: string;
   size: number;

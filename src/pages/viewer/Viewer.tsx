@@ -103,6 +103,8 @@ function Viewer() {
   return info ? (
     <>
       <ViewerHeader
+        id={id}
+        url={url}
         size={size}
         isText={isText}
         handleDesktopButton={handleDesktopButton}

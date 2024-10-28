@@ -29,14 +29,13 @@ function Webletter({ id, url, isText, size }: WebletterProps) {
   }, [size]);
 
   return (
-    <section className={`webletter ${isText && 'hide'}`}>
+    <section className={`webletter ${isText && "hide"}`}>
       <iframe
         className="webletter__iframe"
         src={`${url}/webletter/${id}`}
         ref={iframeRef}
         scrolling="no"
         onLoad={() => resizeIFrameToFirContent(iframeRef.current)}
-        // onError={() => setIsErrorWebletter(true)}
       />
     </section>
   );

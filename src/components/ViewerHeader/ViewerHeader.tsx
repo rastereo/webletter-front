@@ -3,8 +3,11 @@ import { FaMobileAlt, FaDesktop } from "react-icons/fa";
 import { FiFileText } from "react-icons/fi";
 
 import "./ViewerHeader.css";
+import ShareButton from "../ShareButton/ShareButton";
 
 interface ViewerHeaderProps {
+  id: string;
+  url: string;
   size: number | null;
   isText: boolean;
   handleDesktopButton: () => void;
@@ -13,6 +16,8 @@ interface ViewerHeaderProps {
 }
 
 function ViewerHeader({
+  id,
+  url,
   size,
   isText,
   handleDesktopButton,
@@ -48,6 +53,7 @@ function ViewerHeader({
         icon={<FiFileText />}
         onClick={() => handleTextButton()}
       />
+      <ShareButton id={id} url={url} />
     </header>
   );
 }
