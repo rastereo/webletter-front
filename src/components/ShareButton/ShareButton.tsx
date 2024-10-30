@@ -32,7 +32,7 @@ function ShareButton({ id, url }: ShareButton) {
         <Button
           colorScheme="purple"
           variant="solid"
-          sx={{ position: 'absolute', right: 0 }}
+          // sx={{ position: 'absolute', right: 0 }}
         >
           Поделиться
         </Button>

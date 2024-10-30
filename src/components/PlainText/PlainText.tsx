@@ -63,7 +63,7 @@ function PlainText({
             px: '2',
             py: '1',
             rounded: 'full',
-            bg: `${isMisspelledWords ? 'red.100' : isStopWords && 'blue.100'}`,
+            bg: `${isMisspelledWords ? 'red.100' : isStopWords && 'blue.200'}`,
           }}
         >
           {text}

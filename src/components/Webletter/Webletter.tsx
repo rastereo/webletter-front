@@ -36,6 +36,7 @@ function Webletter({ id, url, isText, size }: WebletterProps) {
         ref={iframeRef}
         scrolling="no"
         onLoad={() => resizeIFrameToFirContent(iframeRef.current)}
+        // style={{ filter: 'invert(1)'}}
       />
     </section>
   );
