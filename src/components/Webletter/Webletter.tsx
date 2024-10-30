@@ -22,11 +22,41 @@ function Webletter({ id, url, isText, size }: WebletterProps) {
     }
   }
 
+  function addDarkMode(iframe: HTMLIFrameElement | null) {
+    if (!iframe) return console.error('iframe is null');
+
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+
+    if (!iframeDoc) return console.error('iframeDoc is null');
+
+    const scriptElement = iframeDoc.createElement('script');
+    scriptElement.type = 'text/javascript';
+    scriptElement.text = `
+        (${function () {
+    DarkReader.enable({
+      brightness: 90,
+      contrast: 100,
+      sepia: 0,
+      grayscale: 0,
+    });
+  }.toString()})();
+    `;
+
+    console.log(scriptElement);
+    console.log(scriptElement.text);
+
+    iframeDoc.body.appendChild(scriptElement);
+  }
+
   useEffect(() => {
     if (!isText) {
       resizeIFrameToFirContent(iframeRef.current);
     }
   }, [size]);
+
+  useEffect(() => {
+    addDarkMode(iframeRef.current);
+  }, []);
 
   return (
     <section className={`webletter ${isText && 'hide'}`}>
