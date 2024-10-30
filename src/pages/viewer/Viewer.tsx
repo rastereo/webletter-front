@@ -27,6 +27,7 @@ function Viewer() {
   const [isMisspelledWords, setIsMisspelledWords] = useState<boolean>(false);
   const [isStopWords, setIsStopWords] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isDark, setIsDark] = useState<boolean>(false);
 
   const url = import.meta.env.VITE_APP_SERVER_URL;
 
@@ -96,7 +97,7 @@ function Viewer() {
     setIsMisspelledWords(false);
   }
 
-  function toggleDarkMode(isDark: boolean) {
+  function toggleDarkMode(isDarkMode: boolean) {
     const darkModeTheme = {
       brightness: 90, // Slightly reduced brightness for a dimmer look
       contrast: 100, // Standard contrast; you can adjust higher based on needs
@@ -104,7 +105,9 @@ function Viewer() {
       grayscale: 0, // Do not apply grayscale unless specifically desired
     };
 
-    if (isDark) {
+    setIsDark(isDarkMode);
+
+    if (isDarkMode) {
       enableDarkReader(darkModeTheme);
     } else {
       disableDarkReader();
@@ -113,13 +116,6 @@ function Viewer() {
 
   useEffect(() => {
     getWebletterInfo();
-
-    // enableDarkReader({
-    //   brightness: 90, // Slightly reduced brightness for a dimmer look
-    //   contrast: 100, // Standard contrast; you can adjust higher based on needs
-    //   sepia: 0, // No sepia to maintain a cooler, more neutral tone
-    //   grayscale: 0, // Do not apply grayscale unless specifically desired
-    // });
   }, []);
 
   useEffect(() => {
@@ -153,7 +149,7 @@ function Viewer() {
           title={info.title}
           preheader={info.preheader}
         />
-        <Webletter id={id} isText={isText} size={size} url={url} />
+        <Webletter id={id} isText={isText} size={size} url={url} isDark={isDark} />
         {isText &&
           (text ? (
             <PlainText

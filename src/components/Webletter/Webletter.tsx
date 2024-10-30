@@ -6,9 +6,10 @@ interface WebletterProps {
   url: string;
   isText: boolean;
   size: number | null;
+  isDark: boolean;
 }
 
-function Webletter({ id, url, isText, size }: WebletterProps) {
+function Webletter({ id, url, isText, size, isDark }: WebletterProps) {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   function resizeIFrameToFirContent(iframe: HTMLIFrameElement | null) {
@@ -29,23 +30,42 @@ function Webletter({ id, url, isText, size }: WebletterProps) {
 
     if (!iframeDoc) return console.error('iframeDoc is null');
 
-    const scriptElement = iframeDoc.createElement('script');
-    scriptElement.type = 'text/javascript';
-    scriptElement.text = `
-        (${function () {
-    DarkReader.enable({
-      brightness: 90,
-      contrast: 100,
-      sepia: 0,
-      grayscale: 0,
-    });
-  }.toString()})();
-    `;
+      const scriptDarkMode = iframeDoc.createElement('script');
+      scriptDarkMode.type = "module"
+      
+      if (isDark) {
+        scriptDarkMode.id = 'enebled-dark-mode'
 
-    console.log(scriptElement);
-    console.log(scriptElement.text);
+        const scriptDisableDarkMode = iframeDoc.getElementById('disabled-dark-mode');
 
-    iframeDoc.body.appendChild(scriptElement);
+        console.log('ВКЛ', scriptDisableDarkMode);
+
+        scriptDarkMode.text = `
+          import 'https://cdn.jsdelivr.net/npm/darkreader@4.9.96/darkreader.min.js';
+
+          DarkReader.enable({
+            brightness: 90,
+            contrast: 100,
+            sepia: 0,
+            grayscale: 0,
+          });
+        `;
+    
+      } else {
+        scriptDarkMode.id = 'disabled-dark-mode'
+
+        const scriptEnebleDarkMode = iframeDoc.getElementById('enebled-dark-mode');
+
+        scriptEnebleDarkMode?.remove()
+        
+        scriptDarkMode.text = `
+          import 'https://cdn.jsdelivr.net/npm/darkreader@4.9.96/darkreader.min.js';
+
+          DarkReader.disable();
+        `;
+      }
+
+      iframeDoc.body.appendChild(scriptDarkMode);
   }
 
   useEffect(() => {
@@ -55,8 +75,8 @@ function Webletter({ id, url, isText, size }: WebletterProps) {
   }, [size]);
 
   useEffect(() => {
-    addDarkMode(iframeRef.current);
-  }, []);
+      addDarkMode(iframeRef.current);
+  }, [isDark]);
 
   return (
     <section className={`webletter ${isText && 'hide'}`}>
@@ -66,7 +86,6 @@ function Webletter({ id, url, isText, size }: WebletterProps) {
         ref={iframeRef}
         scrolling="no"
         onLoad={() => resizeIFrameToFirContent(iframeRef.current)}
-        // style={{ filter: 'invert(1)'}}
       />
     </section>
   );
