@@ -24,6 +24,7 @@ interface ShareButton {
 function ShareButton({ id, url }: ShareButton) {
   const { onCopy, value, setValue, hasCopied } = useClipboard('');
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setValue(`${url}/webletter/${id}`), []);
 
   return (
@@ -32,7 +33,6 @@ function ShareButton({ id, url }: ShareButton) {
         <Button
           colorScheme="purple"
           variant="solid"
-          // sx={{ position: 'absolute', right: 0 }}
         >
           Поделиться
         </Button>
