@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   enable as enableDarkReader,
@@ -27,13 +27,15 @@ function Viewer() {
   const [isMisspelledWords, setIsMisspelledWords] = useState<boolean>(false);
   const [isStopWords, setIsStopWords] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isDark, setIsDark] = useState<boolean>(false);
+  const [iframeDoc, setIframeDoc] = useState<Document | null>(null);
 
   const url = import.meta.env.VITE_APP_SERVER_URL;
 
   const { pathname } = useLocation();
 
   const id = pathname.replace(/\//g, '');
+
+  const iframeRef = useRef<HTMLIFrameElement | null>(null)
 
   async function getWebletterInfo() {
     try {
@@ -105,12 +107,48 @@ function Viewer() {
       grayscale: 0, // Do not apply grayscale unless specifically desired
     };
 
-    setIsDark(isDarkMode);
+    // setIsDark(isDarkMode);
 
     if (isDarkMode) {
       enableDarkReader(darkModeTheme);
     } else {
       disableDarkReader();
+    }
+
+    if (!iframeDoc) return console.error('iframeDoc is null');
+
+      iframeDoc.getElementById('dark-mode')?.remove();
+
+      const scriptDarkMode = iframeDoc.createElement('script');
+      scriptDarkMode.type = "module"
+      scriptDarkMode.id = 'dark-mode'
+      
+      if (isDarkMode) {
+        
+        scriptDarkMode.text = `
+        DarkReader.enable({
+        brightness: 90,
+        contrast: 100,
+        sepia: 0,
+        grayscale: 0,
+        });  
+        `.toString();
+      } else {
+        scriptDarkMode.text = `
+        DarkReader.disable();
+        `.toString();;
+      }
+      
+      iframeDoc.body.appendChild(scriptDarkMode);
+  }
+
+  function resizeIFrameToFirContent() {
+    if (iframeRef.current) {
+      if (!iframeDoc) setIframeDoc(iframeRef.current.contentDocument || iframeRef.current.contentWindow?.document || null);
+
+      if (iframeDoc) {
+        iframeRef.current.style.height = iframeDoc.body.scrollHeight + 'px';
+      }
     }
   }
 
@@ -127,6 +165,26 @@ function Viewer() {
   useEffect(() => {
     if (!text && isText) getText();
   }, [isText]);
+
+    useEffect(() => {
+    if (!isText) {
+      resizeIFrameToFirContent();
+    }
+  }, [size]);
+
+  useEffect(() => {
+    if (iframeDoc) {
+      const script = iframeDoc.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/darkreader@4.9.96/darkreader.min.js';
+      script.type = 'module';
+
+      iframeDoc.head.appendChild(script);
+
+      console.log(iframeDoc);
+
+      resizeIFrameToFirContent();
+    }
+  }, [iframeDoc])
 
   return info ? (
     <>
@@ -149,7 +207,7 @@ function Viewer() {
           title={info.title}
           preheader={info.preheader}
         />
-        <Webletter id={id} isText={isText} size={size} url={url} isDark={isDark} />
+        <Webletter id={id} isText={isText} url={url} ref={iframeRef} resizeIFrameToFirContent={resizeIFrameToFirContent} />
         {isText &&
           (text ? (
             <PlainText
