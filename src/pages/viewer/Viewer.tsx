@@ -156,7 +156,6 @@ function Viewer() {
 
   useEffect(() => {
     getWebletterInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -167,14 +166,14 @@ function Viewer() {
 
   useEffect(() => {
     if (!text && isText) getText();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isText]);
 
   useEffect(() => {
     if (!isText) {
       resizeIFrameToFirContent();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size]);
 
   useEffect(() => {
@@ -190,7 +189,7 @@ function Viewer() {
 
       resizeIFrameToFirContent();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [iframeDoc]);
 
   return info ? (

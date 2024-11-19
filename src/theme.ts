@@ -9,7 +9,7 @@ const theme = extendTheme({
     global: {
       body: {
         // padding: '30px 0',
-        maxWidth: '1480px',
+        // maxWidth: '1480px',
         margin: 'auto',
         height: '100vh'
       }

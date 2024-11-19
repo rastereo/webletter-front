@@ -1,4 +1,8 @@
-html{
+:root {
+  --border-radius: 16px;
+}
+
+html {
   overflow-y: overlay;
 }
 body {
@@ -9,15 +13,15 @@ body {
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
-
-/* *,
+/*
+*,
 *::before,
 *::after {
   outline: 2px solid red;
 } */
 
 .root {
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,4 +41,11 @@ p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 500px) {
+  .root {
+    padding: 5px;
+    /* outline: 2px solid red; */
+  }
 }

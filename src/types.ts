@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface ResultWebletter {
   exhibition: string | null;
   id: string;
@@ -7,4 +9,8 @@ export interface ResultWebletter {
   lang: string;
   banner: string;
   upload_date: string;
+}
+
+export interface IProtectedRoute {
+  children: ReactNode;
 }
