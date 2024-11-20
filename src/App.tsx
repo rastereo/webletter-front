@@ -1,8 +1,5 @@
 import Search from './pages/Search/Search';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import ProtectedRoute from './utils/ProtectedRoute';
 import Viewer from './pages/Viewer/Viewer';

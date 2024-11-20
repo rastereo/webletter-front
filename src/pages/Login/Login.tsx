@@ -60,13 +60,11 @@ function Login() {
         }),
       });
 
-      const data = await res.json();
-
       if (res.ok) {
-        console.log('ОТКУДА ПРИШЕЛ', from);
-
         navigate(from, { replace: true });
       } else {
+        const data = await res.json();
+
         throw new Error(data.message);
       }
     } catch (err) {

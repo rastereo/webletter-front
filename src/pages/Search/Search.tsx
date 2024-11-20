@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 
 import './Search.css';
+import ReactCountryFlag from 'react-country-flag';
 
 function Search() {
   const [webletterList, setWebletterList] = useState([]);
@@ -27,6 +28,7 @@ function Search() {
     try {
       const res = await fetch(`${url}/api/webletters`, {
         method: 'GET',
+        credentials: 'include',
         headers: {
           Authorization: `${token}`,
         },
@@ -77,7 +79,7 @@ function Search() {
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th></Th>
+              <Th>Баннер</Th>
               <Th>
                 <p>Выставка</p>
               </Th>
@@ -91,7 +93,7 @@ function Search() {
                 <p>Размер</p>
               </Th>
               <Th>
-                <p>Дата загрузки</p>
+                <p>Дата</p>
               </Th>
             </Tr>
           </Thead>
@@ -103,10 +105,10 @@ function Search() {
                   onClick={() => openWebletter(id)}
                   sx={{
                     cursor: 'pointer',
-                    transition: 'all 0.4s linear',
+                    transition: 'background 0.4s linear',
                     '&:hover': {
-                      opacity: 0.5,
-                      backgroundColor: 'gray.100',
+                      backgroundColor: 'var(--gray)',
+                      fontWeight: '600',
                     },
                   }}
                 >
@@ -128,7 +130,12 @@ function Search() {
                     <p>{title}</p>
                   </Td>
                   <Td>
-                    <p>{lang}</p>
+                    {/* <p>{lang}</p> */}
+                    <ReactCountryFlag
+                      countryCode={lang === 'en' ? 'GB' : lang}
+                      style={{ width: '2em', height: '2em' }}
+                      svg
+                    />
                   </Td>
                   <Td>
                     <Badge

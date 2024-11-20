@@ -39,7 +39,9 @@ function Viewer() {
 
   async function getWebletterInfo() {
     try {
-      const data: Response = await fetch(`${url}/api/${id}`);
+      const data: Response = await fetch(`${url}/api/webletters/${id}`, {
+        credentials: 'include',
+      });
 
       if (!data.ok) {
         const errorData = await data.json();
@@ -62,7 +64,9 @@ function Viewer() {
 
   async function getText() {
     try {
-      const res = await fetch(`${url}/api/${id}/text`);
+      const res = await fetch(`${url}/api/webletters/${id}/text`, {
+        credentials: 'include',
+      });
 
       const { text, misspelledWords, stopWordsInText } = await res.json();
 
