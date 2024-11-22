@@ -3,7 +3,7 @@ import { FaMobileAlt, FaDesktop } from 'react-icons/fa';
 import { FiFileText } from 'react-icons/fi';
 
 import ShareButton from '../ShareButton/ShareButton';
-import DarkModeSwitcher from '../DarkModeSwitcher/DarkModeSwitcher';
+// import DarkModeSwitcher from '../DarkModeSwitcher/DarkModeSwitcher';
 
 import './ViewerHeader.css';
 
@@ -15,7 +15,7 @@ interface ViewerHeaderProps {
   handleDesktopButton: () => void;
   handleMobileButton: (width: number) => void;
   handleTextButton: () => void;
-  toggleDarkMode: (isDark: boolean) => void;
+  // toggleDarkMode: (isDark: boolean) => void;
 }
 
 function ViewerHeader({
@@ -26,11 +26,10 @@ function ViewerHeader({
   handleDesktopButton,
   handleMobileButton,
   handleTextButton,
-  toggleDarkMode,
+  // toggleDarkMode,
 }: ViewerHeaderProps) {
   return (
     <header className="viewer-header">
-      <DarkModeSwitcher toggleDarkMode={toggleDarkMode} />
       <FormControl display="flex" gap={2} width="auto">
         <IconButton
           variant={!size && !isText ? 'solid' : 'outline'}

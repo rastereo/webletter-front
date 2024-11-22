@@ -1,10 +1,12 @@
 :root {
   --border-radius: 16px;
+  --main-padding: 20px;
   --gray: #e6e6e6;
 }
 
 html {
-  overflow-y: overlay;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
 }
 body {
   -moz-osx-font-smoothing: grayscale;
@@ -14,8 +16,8 @@ body {
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
 }
-/*
-*,
+
+/* *,
 *::before,
 *::after {
   outline: 2px solid red;

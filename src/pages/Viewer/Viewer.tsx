@@ -1,9 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import {
-  enable as enableDarkReader,
-  disable as disableDarkReader,
-} from 'darkreader';
 
 import ViewerHeader from '../../components/ViewerHeader/ViewerHeader';
 import Preview from '../../components/Preview/Preview';
@@ -12,6 +8,7 @@ import PlainText from '../../components/PlainText/PlainText';
 import Webletter from '../../components/Webletter/Webletter';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import UserContext from '../../contexts/UserContext';
 
 import { ResultWebletter } from '../../types';
 
@@ -36,6 +33,8 @@ function Viewer() {
   const id = pathname.replace(/\//g, '');
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  const { isDarkMode } = useContext(UserContext);
 
   async function getWebletterInfo() {
     try {
@@ -103,20 +102,7 @@ function Viewer() {
     setIsMisspelledWords(false);
   }
 
-  function toggleDarkMode(isDarkMode: boolean) {
-    const darkModeTheme = {
-      brightness: 90, // Slightly reduced brightness for a dimmer look
-      contrast: 100, // Standard contrast; you can adjust higher based on needs
-      sepia: 0, // No sepia to maintain a cooler, more neutral tone
-      grayscale: 0, // Do not apply grayscale unless specifically desired
-    };
-
-    if (isDarkMode) {
-      enableDarkReader(darkModeTheme);
-    } else {
-      disableDarkReader();
-    }
-
+  function toggleDarkModeOnWebletter(isDarkMode: boolean) {
     if (!iframeDoc) return console.error('iframeDoc is null');
 
     iframeDoc.getElementById('dark-mode')?.remove();
@@ -160,6 +146,8 @@ function Viewer() {
 
   useEffect(() => {
     getWebletterInfo();
+
+    console.log(iframeDoc);
   }, []);
 
   useEffect(() => {
@@ -185,16 +173,20 @@ function Viewer() {
       const script = iframeDoc.createElement('script');
       script.src =
         'https://cdn.jsdelivr.net/npm/darkreader@4.9.96/darkreader.min.js';
-      script.type = 'module';
 
       iframeDoc.head.appendChild(script);
 
-      console.log(iframeDoc);
-
       resizeIFrameToFirContent();
+      script.onload = () => toggleDarkModeOnWebletter(isDarkMode);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [iframeDoc]);
+
+  useEffect(() => {
+    if (iframeDoc) {
+      toggleDarkModeOnWebletter(isDarkMode);
+    }
+  }, [isDarkMode]);
 
   return info ? (
     <>
@@ -206,7 +198,6 @@ function Viewer() {
         handleDesktopButton={handleDesktopButton}
         handleMobileButton={handleMobileButton}
         handleTextButton={handleTextButton}
-        toggleDarkMode={toggleDarkMode}
       />
       <main className="viewer" style={{ width: size ? size + 'px' : '100%' }}>
         <Info uploadDate={info.upload_date} size={info.size} />

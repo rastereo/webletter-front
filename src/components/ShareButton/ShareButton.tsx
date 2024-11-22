@@ -16,6 +16,8 @@ import {
 } from '@chakra-ui/react';
 import { CheckIcon, CopyIcon } from '@chakra-ui/icons';
 
+import './ShareButton.css';
+
 interface ShareButton {
   id: string;
   url: string;
@@ -28,34 +30,35 @@ function ShareButton({ id, url }: ShareButton) {
   useEffect(() => setValue(`${url}/webletter/${id}`), []);
 
   return (
-    <Popover>
-      <PopoverTrigger>
-        <Button
-          colorScheme="purple"
-          variant="solid"
-        >
-          Поделиться
-        </Button>
-      </PopoverTrigger>
-      <Portal>
-        <PopoverContent>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverBody>
-            <Text><b>Прямая ссылка на письмо:</b></Text>
-            <Flex mb={2}>
-              <Input value={value} readOnly mr={2} />
-              <IconButton
-                aria-label="Copy link"
-                icon={hasCopied ? <CheckIcon /> : <CopyIcon />}
-                colorScheme={hasCopied ? 'green' : 'gray'}
-                onClick={onCopy}
-              />
-            </Flex>
-          </PopoverBody>
-        </PopoverContent>
-      </Portal>
-    </Popover>
+    <div className="share-button">
+      <Popover>
+        <PopoverTrigger>
+          <Button colorScheme="purple" variant="solid">
+            Поделиться
+          </Button>
+        </PopoverTrigger>
+        <Portal>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverBody>
+              <Text>
+                <b>Прямая ссылка на письмо:</b>
+              </Text>
+              <Flex mb={2}>
+                <Input value={value} readOnly mr={2} />
+                <IconButton
+                  aria-label="Copy link"
+                  icon={hasCopied ? <CheckIcon /> : <CopyIcon />}
+                  colorScheme={hasCopied ? 'green' : 'gray'}
+                  onClick={onCopy}
+                />
+              </Flex>
+            </PopoverBody>
+          </PopoverContent>
+        </Portal>
+      </Popover>
+    </div>
   );
 }
 

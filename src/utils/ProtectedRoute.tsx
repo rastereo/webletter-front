@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { IProtectedRoute } from '../types';
 import Loader from '../components/Loader/Loader';
+import UserContext from '../contexts/UserContext';
 
 function ProtectedRoute({ children }: IProtectedRoute) {
   const [isVerified, setIsVerified] = useState<boolean | null>(null);
+
+  const { setUser } = useContext(UserContext);
 
   const verifyTokenUrl = import.meta.env.VITE_APP_VERIFY_TOKEN_URL;
 
@@ -18,6 +21,8 @@ function ProtectedRoute({ children }: IProtectedRoute) {
       const data = await res.json();
 
       if (res.ok) {
+        setUser(data.name);
+
         setIsVerified(true);
       } else {
         throw new Error(data.message);
@@ -32,7 +37,7 @@ function ProtectedRoute({ children }: IProtectedRoute) {
   }
   useEffect(() => {
     verifyToken();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isVerified === null) {

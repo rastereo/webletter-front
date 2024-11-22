@@ -14,3 +14,16 @@ export interface ResultWebletter {
 export interface IProtectedRoute {
   children: ReactNode;
 }
+
+export interface IUserContext {
+  user: string | null;
+  setUser: (user: string | null) => void;
+  webletterList: ResultWebletter[] | null,
+  setWebletterList: (webletters: ResultWebletter[]) => void,
+  isDarkMode: boolean
+  setIsDarkMode: (darkMode: boolean) => void
+}
+
+export type UserContextProviderProps = {
+  children: ReactNode;
+};

@@ -1,9 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import {
   Badge,
-  // FormControl,
-  // IconButton,
-  // Input,
   Table,
   TableContainer,
   Tbody,
@@ -15,16 +12,19 @@ import {
 
 import './Search.css';
 import ReactCountryFlag from 'react-country-flag';
+import { useNavigate } from 'react-router-dom';
+import UserContext from '../../contexts/UserContext';
+import Loader from '../../components/Loader/Loader';
 
 function Search() {
-  const [webletterList, setWebletterList] = useState([]);
+  const { webletterList, setWebletterList } = useContext(UserContext);
 
   const url = import.meta.env.VITE_APP_SERVER_URL;
   const token = import.meta.env.VITE_APP_API_TOKEN;
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  async function getAllWebletters() {
+  async function getLastWebletters() {
     try {
       const res = await fetch(`${url}/api/webletters`, {
         method: 'GET',
@@ -35,47 +35,23 @@ function Search() {
       });
 
       if (res.ok) {
-        const data = await res.json();
+        const { webletterList } = await res.json();
 
-        setWebletterList(data.reverse());
+        setWebletterList(webletterList.reverse());
       }
     } catch (err) {
       console.log(err);
     }
   }
 
-  function openWebletter(id: string) {
-    window.open(`/${id}`, '_blank');
-  }
-
   useEffect(() => {
-    getAllWebletters();
+    if (!webletterList) getLastWebletters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
+  return webletterList ? (
     <section className="search">
-      {/* <FormControl
-        maxWidth={'70%'}
-        margin={'0 auto'}
-        pb={10}
-        display={'flex'}
-        gap={'5px'}
-        pt={'50px'}
-      >
-        <Input placeholder="Тема письма" />
-        <IconButton
-          type="submit"
-          colorScheme="green"
-          aria-label="Search database"
-          icon={<SearchIcon />}
-        />
-      </FormControl> */}
-      <TableContainer
-        width="100%"
-        whiteSpace="wrap"
-        // style={{ padding: '0 20px' }}
-      >
+      <TableContainer width="100%" whiteSpace="wrap">
         <Table variant="simple">
           <Thead>
             <Tr>
@@ -98,68 +74,79 @@ function Search() {
             </Tr>
           </Thead>
           <Tbody>
-            {webletterList.map(
-              ({ id, banner, exhibition, title, size, upload_date, lang }) => (
-                <Tr
-                  key={id}
-                  onClick={() => openWebletter(id)}
-                  sx={{
-                    cursor: 'pointer',
-                    transition: 'background 0.4s linear',
-                    '&:hover': {
-                      backgroundColor: 'var(--gray)',
-                      fontWeight: '600',
-                    },
-                  }}
-                >
-                  <Td style={{ padding: 0 }}>
-                    <img
-                      src={`${url}/webletter/${id}/${banner}`}
-                      alt={exhibition}
-                      style={{
-                        maxWidth: '100px',
-                        height: '100%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  </Td>
-                  <Td>
-                    <p>{exhibition}</p>
-                  </Td>
-                  <Td>
-                    <p>{title}</p>
-                  </Td>
-                  <Td>
-                    {/* <p>{lang}</p> */}
-                    <ReactCountryFlag
-                      countryCode={lang === 'en' ? 'GB' : lang}
-                      style={{ width: '2em', height: '2em' }}
-                      svg
-                    />
-                  </Td>
-                  <Td>
-                    <Badge
-                      colorScheme={size > 1e6 ? 'red' : 'green'}
-                      className="no-darkreader"
-                    >
-                      {(size / 1e6).toFixed(2)}MB
-                    </Badge>
-                  </Td>
-                  <Td style={{ padding: 0 }}>
-                    <p>
-                      {`${new Date(upload_date)
-                        .toLocaleTimeString()
-                        .slice(0, -3)}`}{' '}
-                      {`${new Date(upload_date).toLocaleDateString()}`}
-                    </p>
-                  </Td>
-                </Tr>
-              )
-            )}
+            {webletterList &&
+              webletterList.map(
+                ({
+                  id,
+                  banner,
+                  exhibition,
+                  title,
+                  size,
+                  upload_date,
+                  lang,
+                }) => (
+                  <Tr
+                    key={id}
+                    onClick={() => navigate(`/${id}`)}
+                    sx={{
+                      cursor: 'pointer',
+                      transition: 'background 0.4s linear',
+                      '&:hover': {
+                        backgroundColor: 'var(--gray)',
+                        fontWeight: '600',
+                      },
+                    }}
+                  >
+                    <Td style={{ padding: 0 }}>
+                      <img
+                        src={`${url}/webletter/${id}/${banner}`}
+                        alt={exhibition ? exhibition : 'Banner'}
+                        style={{
+                          maxWidth: '100px',
+                          height: '100%',
+                          objectFit: 'cover',
+                        }}
+                      />
+                    </Td>
+                    <Td>
+                      <p>{exhibition}</p>
+                    </Td>
+                    <Td>
+                      <p>{title}</p>
+                    </Td>
+                    <Td>
+                      {/* <p>{lang}</p> */}
+                      <ReactCountryFlag
+                        countryCode={lang === 'en' ? 'GB' : lang}
+                        style={{ width: '2em', height: '2em' }}
+                        svg
+                      />
+                    </Td>
+                    <Td>
+                      <Badge
+                        colorScheme={size > 1e6 ? 'red' : 'green'}
+                        className="no-darkreader"
+                      >
+                        {(size / 1e6).toFixed(2)}MB
+                      </Badge>
+                    </Td>
+                    <Td style={{ padding: 0 }}>
+                      <p>
+                        {`${new Date(upload_date)
+                          .toLocaleTimeString()
+                          .slice(0, -3)}`}{' '}
+                        {`${new Date(upload_date).toLocaleDateString()}`}
+                      </p>
+                    </Td>
+                  </Tr>
+                )
+              )}
           </Tbody>
         </Table>
       </TableContainer>
     </section>
+  ) : (
+    <Loader />
   );
 }
 

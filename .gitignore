@@ -23,10 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 
+ICF_1311
+
 .env
 .vscode
 
 tsconfig.node.tsbuildinfo
 tsconfig.app.tsbuildinfo
-tsconfig.node.json
-tsconfig.app.json

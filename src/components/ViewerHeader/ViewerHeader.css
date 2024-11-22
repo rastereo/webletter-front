@@ -1,9 +1,11 @@
 .viewer-header {
   display: flex;
-  justify-content: space-between;
+  /* grid-template-columns: 1fr auto; */
+  justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 20px 20px 10px;
+  padding: 10px 20px;
   /* position: relative; */
   width: 100%;
+  position: relative;
 }
