@@ -146,8 +146,6 @@ function Viewer() {
 
   useEffect(() => {
     getWebletterInfo();
-
-    console.log(iframeDoc);
   }, []);
 
   useEffect(() => {

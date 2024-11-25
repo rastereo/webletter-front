@@ -1,0 +1,9 @@
+.search-form {
+  max-width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 10px;
+  gap: 10px;
+  margin: 0 auto;
+}
