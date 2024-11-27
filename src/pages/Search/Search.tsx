@@ -17,8 +17,8 @@ import { useNavigate } from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
 import Loader from '../../components/Loader/Loader';
 import SearchForm from '../../components/SearchForm/SearchForm';
-// import mainApi from '../../utils/MainApi';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 function Search() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -27,6 +27,8 @@ function Search() {
     useContext(UserContext);
 
   const navigate = useNavigate();
+
+  useDocumentTitle('Webletters', true);
 
   async function getLastWebletters() {
     try {

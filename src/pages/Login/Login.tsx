@@ -20,6 +20,7 @@ import { BiSolidShow, BiHide } from 'react-icons/bi';
 import { useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
 import logo from '../../assets/logo.png';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -37,6 +38,8 @@ function Login() {
   const navigate = useNavigate();
 
   const from: string = location.state?.from?.pathname || '/';
+
+  useDocumentTitle('Login', true);
 
   function handleShowClick() {
     setShowPassword(!showPassword);

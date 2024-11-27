@@ -9,6 +9,7 @@ import Webletter from '../../components/Webletter/Webletter';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import UserContext from '../../contexts/UserContext';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 import { ResultWebletter } from '../../types';
 
@@ -33,6 +34,8 @@ function Viewer() {
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   const { isDarkMode, mainApi } = useContext(UserContext);
+
+  useDocumentTitle(`Viewer – ${info?.title}`, true);
 
   async function getWebletterInfo() {
     try {
@@ -135,12 +138,6 @@ function Viewer() {
   useEffect(() => {
     getWebletterInfo();
   }, []);
-
-  useEffect(() => {
-    if (info?.title) {
-      document.title = `Viewer – ${info?.title}`;
-    }
-  }, [info]);
 
   useEffect(() => {
     if (!text && isText) getText();
