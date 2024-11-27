@@ -26,54 +26,42 @@ function Viewer() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [iframeDoc, setIframeDoc] = useState<Document | null>(null);
 
-  const url = import.meta.env.VITE_APP_SERVER_URL;
-
   const { pathname } = useLocation();
 
   const id = pathname.replace(/\//g, '');
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
-  const { isDarkMode } = useContext(UserContext);
+  const { isDarkMode, mainApi } = useContext(UserContext);
 
   async function getWebletterInfo() {
     try {
-      const data: Response = await fetch(`${url}/api/webletters/${id}`, {
-        credentials: 'include',
-      });
-
-      if (!data.ok) {
-        const errorData = await data.json();
-
-        console.log(errorData);
-
-        throw new Error(errorData.message);
+      if (!mainApi) {
+        throw new Error('MainApi not found');
       }
 
-      const info = await data.json();
+      const data = await mainApi.getWebletterInfo(id);
 
-      setInfo(info);
+      setInfo(data);
     } catch (err) {
-      setErrorMessage(
-        (err as Error).message || 'Что-то пошло не так, попробуйте позже'
-      );
-      console.log(err);
+      if (err instanceof Error) setErrorMessage(err.message);
     }
   }
 
   async function getText() {
     try {
-      const res = await fetch(`${url}/api/webletters/${id}/text`, {
-        credentials: 'include',
-      });
+      if (!mainApi) {
+        throw new Error('MainApi not found');
+      }
 
-      const { text, misspelledWords, stopWordsInText } = await res.json();
+      const { text, misspelledWords, stopWordsInText } =
+        await mainApi.getWebletterText(id);
 
       setText(text);
       setMisspelledWords(misspelledWords);
       setStopWords(stopWordsInText);
     } catch (err) {
-      console.log(err);
+      if (err instanceof Error) setErrorMessage(err.message);
     }
   }
 
@@ -190,7 +178,6 @@ function Viewer() {
     <>
       <ViewerHeader
         id={id}
-        url={url}
         size={size}
         isText={isText}
         handleDesktopButton={handleDesktopButton}
@@ -209,7 +196,6 @@ function Viewer() {
         <Webletter
           id={id}
           isText={isText}
-          url={url}
           ref={iframeRef}
           resizeIFrameToFirContent={resizeIFrameToFirContent}
         />

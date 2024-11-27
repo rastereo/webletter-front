@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { FormEvent, useContext, useEffect, useState } from 'react';
 import {
   Badge,
   Table,
@@ -17,33 +17,67 @@ import { useNavigate } from 'react-router-dom';
 import UserContext from '../../contexts/UserContext';
 import Loader from '../../components/Loader/Loader';
 import SearchForm from '../../components/SearchForm/SearchForm';
+// import mainApi from '../../utils/MainApi';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 function Search() {
-  const { webletterList, setWebletterList, setExhibitionList, setLangList } =
-    useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const url = import.meta.env.VITE_APP_SERVER_URL;
+  const { webletterList, setWebletterList, setExhibitionList, setLangList, mainApi } =
+    useContext(UserContext);
 
   const navigate = useNavigate();
 
   async function getLastWebletters() {
     try {
-      const res = await fetch(`${url}/api/webletters`, {
-        method: 'GET',
-        credentials: 'include',
-      });
+      if (!mainApi) {
+        throw new Error('MainApi not found');
+      }
 
-      if (res.ok) {
-        const { webletterList, exhibitionList, langList } = await res.json();
+      const result = await mainApi.getInitialLoadData();
+
+      if (!(result instanceof Error)) {
+        const { webletterList, exhibitionList, langList } = result;
 
         setWebletterList(webletterList);
-        setExhibitionList(
-          exhibitionList.filter((exhibition: string | null) => exhibition)
-        );
-        setLangList(langList.filter((lang: string | null) => lang));
+        setExhibitionList(exhibitionList.filter((exhibition) => exhibition));
+        setLangList(langList.filter((lang) => lang));
       }
     } catch (err) {
-      console.log(err);
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage('An unexpected error occurred. Please try again.');
+      }
+    }
+  }
+
+  async function searchWebletters(
+    evt: FormEvent<HTMLFormElement>,
+    selectedFilter: Record<string, string>
+  ) {
+    evt.preventDefault();
+
+    setWebletterList(null);
+
+    try {
+      if (!mainApi) {
+        throw new Error('MainApi not found');
+      }
+
+      const data = await mainApi.searchWebletters(selectedFilter);
+
+      if ('webletterList' in data) {
+        setWebletterList(data.webletterList);
+      } else if (Array.isArray(data)) {
+        setWebletterList(data);
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setErrorMessage(err.message);
+      } else {
+        setErrorMessage('An unexpected error occurred. Please try again.');
+      }
     }
   }
 
@@ -54,7 +88,7 @@ function Search() {
 
   return (
     <section className="search">
-      <SearchForm />
+      <SearchForm onSubmit={searchWebletters} />
       {webletterList ? (
         <TableContainer width="100%" whiteSpace="wrap">
           <Table variant="simple">
@@ -104,7 +138,9 @@ function Search() {
                     >
                       <Td style={{ padding: 0 }}>
                         <img
-                          src={`${url}/webletter/${id}/${banner}`}
+                          src={`${
+                            import.meta.env.VITE_APP_WEBLETTER_URL
+                          }/${id}/${banner}`}
                           alt={exhibition ? exhibition : 'Banner'}
                           style={{
                             maxWidth: '100px',
@@ -148,6 +184,8 @@ function Search() {
             </Tbody>
           </Table>
         </TableContainer>
+      ) : errorMessage ? (
+        <ErrorMessage message={errorMessage} />
       ) : (
         <Loader />
       )}

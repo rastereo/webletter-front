@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import {
   Box,
   Button,
@@ -16,8 +16,10 @@ import {
 } from '@chakra-ui/react';
 import { FaLock, FaUserAlt } from 'react-icons/fa';
 import { BiSolidShow, BiHide } from 'react-icons/bi';
-import logo from '../../assets/logo.png';
+
 import { useLocation, useNavigate } from 'react-router-dom';
+import UserContext from '../../contexts/UserContext';
+import logo from '../../assets/logo.png';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -29,12 +31,12 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
+  const { mainApi } = useContext(UserContext);
+
   const location = useLocation();
   const navigate = useNavigate();
 
   const from: string = location.state?.from?.pathname || '/';
-
-  const authUrl = import.meta.env.VITE_APP_AUTH_URL;
 
   function handleShowClick() {
     setShowPassword(!showPassword);
@@ -48,32 +50,18 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch(authUrl, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      });
-
-      if (res.ok) {
-        navigate(from, { replace: true });
-      } else {
-        const data = await res.json();
-
-        throw new Error(data.message);
+      if (!mainApi) {
+        throw new Error('MainApi not found');
       }
-    } catch (err) {
-      console.log(err);
 
+      await mainApi.signIn(username, password);
+
+      navigate(from, { replace: true });
+    } catch (err) {
       if (err instanceof Error) {
         setErrorMessage(err.message);
       } else {
-        setErrorMessage('Неизвестная ошибка');
+        setErrorMessage('An unexpected error occurred. Please try again.');
       }
     } finally {
       setLoading(false);

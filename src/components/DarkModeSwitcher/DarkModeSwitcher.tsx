@@ -34,12 +34,12 @@ function DarkModeSwitcher() {
   }
 
   useEffect(() => {
-    const isDark = localStorage.getItem('isDark')
+    const isDark = localStorage.getItem('isDark');
 
     if (isDark !== null) {
-      toggleDarkMode(JSON.parse(isDark))
+      toggleDarkMode(JSON.parse(isDark));
     }
-  }, [])
+  }, []);
 
   return (
     <IconButton

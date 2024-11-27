@@ -1,7 +1,7 @@
 import './ErrorMessage.css';
 
 interface ErrorMessageProps {
-  message: string;
+  message: string | null;
 }
 
 function ErrorMessage({ message }: ErrorMessageProps) {

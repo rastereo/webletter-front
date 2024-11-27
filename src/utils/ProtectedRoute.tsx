@@ -8,35 +8,29 @@ import UserContext from '../contexts/UserContext';
 function ProtectedRoute({ children }: IProtectedRoute) {
   const [isVerified, setIsVerified] = useState<boolean | null>(null);
 
-  const { setUser } = useContext(UserContext);
-
-  const verifyTokenUrl = import.meta.env.VITE_APP_VERIFY_TOKEN_URL;
+  const { setUser, mainApi } = useContext(UserContext);
 
   const location = useLocation();
 
-  async function verifyToken() {
+  async function checkJWT() {
     try {
-      const res = await fetch(verifyTokenUrl, { credentials: 'include' });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setUser(data.name);
-
-        setIsVerified(true);
-      } else {
-        throw new Error(data.message);
+      if (!mainApi) {
+        throw new Error('MainApi not found');
       }
+
+      const { name } = await mainApi.verifyJWT();
+
+      setUser(name);
+      setIsVerified(true);
     } catch (err) {
-      if (err instanceof Error) {
-        console.log(err.message);
-      }
+      console.log(err);
 
       setIsVerified(false);
     }
   }
+
   useEffect(() => {
-    verifyToken();
+    checkJWT();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

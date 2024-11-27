@@ -9,7 +9,6 @@ import './ViewerHeader.css';
 
 interface ViewerHeaderProps {
   id: string;
-  url: string;
   size: number | null;
   isText: boolean;
   handleDesktopButton: () => void;
@@ -20,7 +19,6 @@ interface ViewerHeaderProps {
 
 function ViewerHeader({
   id,
-  url,
   size,
   isText,
   handleDesktopButton,
@@ -59,7 +57,7 @@ function ViewerHeader({
           onClick={() => handleTextButton()}
         />
       </FormControl>
-      <ShareButton id={id} url={url} />
+      <ShareButton id={id} />
     </header>
   );
 }

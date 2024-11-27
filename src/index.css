@@ -24,10 +24,14 @@ body {
 } */
 
 .root {
-  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+
+  height: 100vh;
+
+  /* border: 1px solid red; */
 }
 
 p {

@@ -20,14 +20,16 @@ import './ShareButton.css';
 
 interface ShareButton {
   id: string;
-  url: string;
 }
 
-function ShareButton({ id, url }: ShareButton) {
+function ShareButton({ id }: ShareButton) {
   const { onCopy, value, setValue, hasCopied } = useClipboard('');
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setValue(`${url}/webletter/${id}`), []);
+  useEffect(
+    () => setValue(`${import.meta.env.VITE_APP_WEBLETTER_URL}/webletter/${id}`),
+    []
+  );
 
   return (
     <div className="share-button">

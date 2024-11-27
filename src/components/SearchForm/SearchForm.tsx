@@ -1,21 +1,19 @@
-import { FormEvent, useContext } from 'react';
+import { useContext } from 'react';
 import { IconButton, Select, Stack, Text } from '@chakra-ui/react';
-import { RepeatIcon, SearchIcon } from '@chakra-ui/icons';
+import { SearchIcon } from '@chakra-ui/icons';
 
 import UserContext from '../../contexts/UserContext';
+import { ISearchForm } from '../../types';
 
 import './SearchForm.css';
 
-function SearchForm() {
+function SearchForm({ onSubmit }: ISearchForm) {
   const {
     exhibitionList,
-    setWebletterList,
     langList,
     selectedFilter,
     setSelectedFilter,
   } = useContext(UserContext);
-
-  const baseUrl = import.meta.env.VITE_APP_SERVER_URL;
 
   function handleSelect(name: string, value: string) {
     setSelectedFilter((prevSelection: Record<string, string>) => {
@@ -29,54 +27,11 @@ function SearchForm() {
     });
   }
 
-  
-
-  async function onSubmit(evt: FormEvent<HTMLFormElement>) {
-    evt.preventDefault();
-
-    setWebletterList(null);
-
-    const params: string[] = [];
-
-    for (let key in selectedFilter) {
-      if (selectedFilter[key]) {
-        params.push(`${key}=${encodeURIComponent(selectedFilter[key])}`);
-      }
-    }
-
-    try {
-      let res: Response;
-
-      if (params.length > 0) {
-        res = await fetch(`${baseUrl}/api/search?${params.join('&')}`, {
-          credentials: 'include',
-        });
-      } else {
-        res = await fetch(`${baseUrl}/api/webletters`, {
-          credentials: 'include',
-        });
-      }
-
-      if (res.ok) {
-        const data = await res.json();
-        setWebletterList(data.webletterList ? data.webletterList : data);
-      } else {
-        const error = await res.json();
-        throw new Error(error.message);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  // function resetSearchFilters(evt: FormEvent<HTMLFormElement>) {
-  //   setSelectedFilter({});
-
-  //   onSubmit(evt)
-  // }
-
   return (
-    <form className="search-form" onSubmit={(e) => onSubmit(e)}>
+    <form
+      className="search-form"
+      onSubmit={(evt) => onSubmit(evt, selectedFilter)}
+    >
       <Stack spacing={0} flex="3">
         <Text as="b" fontSize="xs" margin="0">
           Выставка:
@@ -117,13 +72,13 @@ function SearchForm() {
         colorScheme="blue"
         type="submit"
       />
-      <IconButton
+      {/* <IconButton
         icon={<RepeatIcon />}
         aria-label="Reset search"
         colorScheme="teal"
         type="button"
         onClick={() => setSelectedFilter({})}
-      />
+      /> */}
     </form>
   );
 }
