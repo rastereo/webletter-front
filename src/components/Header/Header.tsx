@@ -37,7 +37,7 @@ function Header() {
 
   return (
     <header className="header">
-      <Stack direction="row" alignItems="center">
+      <Stack direction="row" alignItems="center" justifySelf="start">
         <Avatar name={user || ''} size="sm">
           <AvatarBadge boxSize="1.25em" bg="green.400" />
         </Avatar>

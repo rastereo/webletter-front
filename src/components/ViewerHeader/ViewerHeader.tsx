@@ -3,7 +3,9 @@ import { FaMobileAlt, FaDesktop } from 'react-icons/fa';
 import { FiFileText } from 'react-icons/fi';
 
 import ShareButton from '../ShareButton/ShareButton';
-// import DarkModeSwitcher from '../DarkModeSwitcher/DarkModeSwitcher';
+import Info from '../Info/Info';
+
+import { ResultWebletter } from '../../types';
 
 import './ViewerHeader.css';
 
@@ -11,6 +13,7 @@ interface ViewerHeaderProps {
   id: string;
   size: number | null;
   isText: boolean;
+  info: ResultWebletter
   handleDesktopButton: () => void;
   handleMobileButton: (width: number) => void;
   handleTextButton: () => void;
@@ -21,6 +24,7 @@ function ViewerHeader({
   id,
   size,
   isText,
+  info,
   handleDesktopButton,
   handleMobileButton,
   handleTextButton,
@@ -28,6 +32,7 @@ function ViewerHeader({
 }: ViewerHeaderProps) {
   return (
     <header className="viewer-header">
+      <Info uploadDate={info.upload_date} size={info.size} />
       <FormControl display="flex" gap={2} width="auto">
         <IconButton
           variant={!size && !isText ? 'solid' : 'outline'}

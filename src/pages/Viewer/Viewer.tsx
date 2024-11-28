@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 import ViewerHeader from '../../components/ViewerHeader/ViewerHeader';
 import Preview from '../../components/Preview/Preview';
-import Info from '../../components/Info/Info';
 import PlainText from '../../components/PlainText/PlainText';
 import Webletter from '../../components/Webletter/Webletter';
 import Loader from '../../components/Loader/Loader';
@@ -171,52 +170,56 @@ function Viewer() {
     }
   }, [isDarkMode]);
 
-  return info ? (
-    <>
-      <ViewerHeader
-        id={id}
-        size={size}
-        isText={isText}
-        handleDesktopButton={handleDesktopButton}
-        handleMobileButton={handleMobileButton}
-        handleTextButton={handleTextButton}
-      />
-      <main className="viewer" style={{ width: size ? size + 'px' : '100%' }}>
-        <Info uploadDate={info.upload_date} size={info.size} />
-        <Preview
-          size={size}
-          exhibition={info.exhibition || 'Выставка'}
-          upload_date={info.upload_date}
-          title={info.title}
-          preheader={info.preheader}
-        />
-        <Webletter
-          id={id}
-          isText={isText}
-          ref={iframeRef}
-          resizeIFrameToFirContent={resizeIFrameToFirContent}
-        />
-        {isText &&
-          (text ? (
-            <PlainText
-              text={text}
-              misspelledWords={misspelledWords}
-              stopWords={stopWords}
-              isText={isText}
-              isMisspelledWords={isMisspelledWords}
-              isStopWords={isStopWords}
-              handleIsMisspelledWords={handleCheckboxMisspelledWords}
-              handleIsStopWords={handleCheckboxStopWords}
+  return (
+    <main className="viewer">
+      {info ? (
+        <>
+          <ViewerHeader
+            id={id}
+            size={size}
+            isText={isText}
+            info={info}
+            handleDesktopButton={handleDesktopButton}
+            handleMobileButton={handleMobileButton}
+            handleTextButton={handleTextButton}
+          />
+          <div style={{ width: size ? size + 'px' : '100%' }}>
+            <Preview
+              size={size}
+              exhibition={info.exhibition || 'Выставка'}
+              upload_date={info.upload_date}
+              title={info.title}
+              preheader={info.preheader}
             />
-          ) : (
-            <Loader />
-          ))}
-      </main>
-    </>
-  ) : errorMessage ? (
-    <ErrorMessage message={errorMessage} />
-  ) : (
-    <Loader />
+            <Webletter
+              id={id}
+              isText={isText}
+              ref={iframeRef}
+              resizeIFrameToFirContent={resizeIFrameToFirContent}
+            />
+          </div>
+          {isText &&
+            (text ? (
+              <PlainText
+                text={text}
+                misspelledWords={misspelledWords}
+                stopWords={stopWords}
+                isText={isText}
+                isMisspelledWords={isMisspelledWords}
+                isStopWords={isStopWords}
+                handleIsMisspelledWords={handleCheckboxMisspelledWords}
+                handleIsStopWords={handleCheckboxStopWords}
+              />
+            ) : (
+              <Loader />
+            ))}
+        </>
+      ) : errorMessage ? (
+        <ErrorMessage message={errorMessage} />
+      ) : (
+        <Loader />
+      )}
+    </main>
   );
 }
 

@@ -1,7 +1,10 @@
 .info {
+  /* width: 100%; */
   font-size: 12px;
   color: #a4a3a3;
-  padding: 0 16px 2px;
+  /* padding: 0 16px 2px; */
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  /* gap: 5px; */
+  justify-self: start;
 }

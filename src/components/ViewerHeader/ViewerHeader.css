@@ -1,11 +1,13 @@
 .viewer-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  /* display: flex; */
   /* grid-template-columns: 1fr auto; */
-  justify-content: center;
+  /* justify-content: space-between; */
   align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
+  /* gap: 10px; */
+  padding: 10px 0 20px;
   /* position: relative; */
   width: 100%;
-  position: relative;
+  /* position: relative; */
 }

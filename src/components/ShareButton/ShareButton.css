@@ -1,4 +1,5 @@
 .share-button {
-  position: absolute;
-  right: var(--main-padding);
+  /* position: absolute;
+  right: 0; */
+  justify-self: end;
 }

@@ -23,7 +23,7 @@ dist-ssr
 *.sln
 *.sw?
 
-ICF_1311
+test
 
 .env
 .vscode

@@ -27,7 +27,7 @@ function ShareButton({ id }: ShareButton) {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(
-    () => setValue(`${import.meta.env.VITE_APP_WEBLETTER_URL}/webletter/${id}`),
+    () => setValue(`${import.meta.env.VITE_APP_WEBLETTER_URL}/${id}`),
     []
   );
 

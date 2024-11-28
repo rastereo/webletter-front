@@ -8,6 +8,13 @@ html {
   scrollbar-width: thin;
   scrollbar-gutter: stable;
 }
+/* html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+} */
+
 body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -24,14 +31,10 @@ body {
 } */
 
 .root {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-
-  height: 100vh;
-
-  /* border: 1px solid red; */
+  justify-content: flex-start; */
 }
 
 p {

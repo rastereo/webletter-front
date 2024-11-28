@@ -26,13 +26,13 @@ function Info({ uploadDate, size }: InfoProps) {
 
   return (
     <section className="info">
-      <p className="info__last-update">Last update: {Info}</p>
       <p className="info__size">
         Size:{' '}
         <Badge colorScheme={size > 1e6 ? 'red' : 'green'} className="no-darkreader">
           {(size / 1e6).toFixed(2)}MB
         </Badge>
       </p>
+      <p className="info__last-update">Last update: {Info}</p>
     </section>
   );
 }
