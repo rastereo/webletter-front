@@ -1,9 +1,10 @@
 .loader {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 }
 
 .loader_not-height {

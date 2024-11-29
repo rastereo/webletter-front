@@ -27,8 +27,14 @@ export interface IUserContext {
   setLangList: (langs: string[]) => void;
   selectedFilter: Record<string, string>;
   setSelectedFilter: (select: any) => void;
+  weblettersCount: number;
+  setWeblettersCount: (number: number) => void;
+  isInitialLoadData: boolean;
+  setIsInitialLoadData: (InitialLoadData: boolean) => void;
   isDarkMode: boolean;
   setIsDarkMode: (darkMode: boolean) => void;
+  isStartCounter: boolean;
+  setIsStartCounter: (start: boolean) => void;
   mainApi: MainApi | null;
 }
 
@@ -51,6 +57,7 @@ export interface InitialLoadData {
   webletterList: ResultWebletter[];
   exhibitionList: string[];
   langList: string[];
+  weblettersCount: number;
 }
 
 export interface IWebletterText {

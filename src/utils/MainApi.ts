@@ -78,7 +78,7 @@ class MainApi {
     }
   }
 
-  async signOut(): Promise<object> {
+  async signOut(): Promise<{ message: string }> {
     try {
       const res = await fetch(this.baseUrl + this.logoutPath, {
         credentials: 'include',

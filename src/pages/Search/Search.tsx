@@ -4,7 +4,8 @@ import UserContext from '../../contexts/UserContext';
 import Loader from '../../components/Loader/Loader';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import WebletterTable from '../../components/WebletterTable/WebletterTable';
+import WebletterList from '../../components/WebletterList/WebletterList';
+import Counter from '../../components/Counter/Counter';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 import './Search.css';
@@ -17,6 +18,10 @@ function Search() {
     setWebletterList,
     setExhibitionList,
     setLangList,
+    weblettersCount,
+    setWeblettersCount,
+    isInitialLoadData,
+    setIsInitialLoadData,
     mainApi,
   } = useContext(UserContext);
 
@@ -28,16 +33,18 @@ function Search() {
         throw new Error('MainApi not found');
       }
 
-      const result = await mainApi.getInitialLoadData();
+      setIsInitialLoadData(true);
 
-      if (!(result instanceof Error)) {
-        const { webletterList, exhibitionList, langList } = result;
+      const { webletterList, exhibitionList, langList, weblettersCount } =
+        await mainApi.getInitialLoadData();
 
-        setWebletterList(webletterList);
-        setExhibitionList(exhibitionList.filter((exhibition) => exhibition));
-        setLangList(langList.filter((lang) => lang));
-      }
+      setWebletterList(webletterList);
+      setExhibitionList(exhibitionList.filter((exhibition) => exhibition));
+      setLangList(langList.filter((lang) => lang));
+      setWeblettersCount(weblettersCount);
     } catch (err) {
+      setWeblettersCount(0);
+
       if (err instanceof Error) {
         setErrorMessage(err.message);
       } else {
@@ -62,11 +69,17 @@ function Search() {
       const data = await mainApi.searchWebletters(selectedFilter);
 
       if ('webletterList' in data) {
+        setIsInitialLoadData(true);
         setWebletterList(data.webletterList);
+        setWeblettersCount(data.weblettersCount);
       } else if (Array.isArray(data)) {
+        setIsInitialLoadData(false);
         setWebletterList(data);
+        setWeblettersCount(data.length);
       }
     } catch (err) {
+      setWeblettersCount(0);
+
       if (err instanceof Error) {
         setErrorMessage(err.message);
       } else {
@@ -81,16 +94,22 @@ function Search() {
   }, []);
 
   return (
-    <section className="search">
+    <main className="search">
       <SearchForm onSubmit={searchWebletters} />
+      <Counter
+        quantity={weblettersCount}
+        text={isInitialLoadData ? 'Всего писем:' : 'Найдено писем:'}
+      />
       {webletterList ? (
-        <WebletterTable webletterList={webletterList} />
+        <>
+          <WebletterList webletterList={webletterList} />
+        </>
       ) : errorMessage ? (
         <ErrorMessage message={errorMessage} />
       ) : (
         <Loader />
       )}
-    </section>
+    </main>
   );
 }
 

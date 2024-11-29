@@ -18,8 +18,14 @@ const UserContext = createContext<IUserContext>({
   setLangList: () => {},
   selectedFilter: {},
   setSelectedFilter: () => {},
+  weblettersCount: 0,
+  setWeblettersCount: () => {},
+  isInitialLoadData: false,
+  setIsInitialLoadData: () => {},
   isDarkMode: false,
   setIsDarkMode: () => {},
+  isStartCounter: false,
+  setIsStartCounter: () => {},
   mainApi: null,
 });
 
@@ -30,8 +36,13 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   );
   const [exhibitionList, setExhibitionList] = useState<string[] | null>(null);
   const [langList, setLangList] = useState<string[] | null>(null);
-  const [selectedFilter, setSelectedFilter] = useState<Record<string, string>>({});
+  const [selectedFilter, setSelectedFilter] = useState<Record<string, string>>(
+    {}
+  );
+  const [weblettersCount, setWeblettersCount] = useState<number>(0);
+  const [isInitialLoadData, setIsInitialLoadData] = useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isStartCounter, setIsStartCounter] = useState<boolean>(true);
 
   const mainApi = useMemo(
     () =>
@@ -61,8 +72,14 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
         setLangList,
         selectedFilter,
         setSelectedFilter,
+        weblettersCount,
+        setWeblettersCount,
+        isInitialLoadData,
+        setIsInitialLoadData,
         isDarkMode,
         setIsDarkMode,
+        isStartCounter,
+        setIsStartCounter,
         mainApi,
       }}
     >

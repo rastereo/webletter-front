@@ -1,13 +1,16 @@
 :root {
   --border-radius: 16px;
+  --border-color: #e2e8f0;
   --main-padding: 20px;
   --gray: #e6e6e6;
+  --webletter-list-grid: 150px 0.5fr 1fr 40px 100px 0.2fr;
 }
 
 html {
   scrollbar-width: thin;
   scrollbar-gutter: stable;
 }
+
 /* html, body {
   height: 100%;
   margin: 0;
@@ -22,6 +25,12 @@ body {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 /* *,
@@ -51,6 +60,10 @@ p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.grid-center {
+  justify-self: center;
 }
 
 @media screen and (max-width: 500px) {

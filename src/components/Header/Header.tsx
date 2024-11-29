@@ -1,9 +1,8 @@
 import { useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Avatar, AvatarBadge, IconButton, Stack, Text } from '@chakra-ui/react';
 import { MdLogout } from 'react-icons/md';
-import { IoHomeOutline } from 'react-icons/io5';
-import { RepeatIcon } from '@chakra-ui/icons';
+import { RepeatIcon, SearchIcon } from '@chakra-ui/icons';
 
 import DarkModeSwitcher from '../DarkModeSwitcher/DarkModeSwitcher';
 import UserContext from '../../contexts/UserContext';
@@ -11,29 +10,43 @@ import UserContext from '../../contexts/UserContext';
 import './Header.css';
 
 function Header() {
-  const { user } = useContext(UserContext);
+  const { user, mainApi } = useContext(UserContext);
 
   const navigate = useNavigate();
 
-  const location = useLocation();
-
   async function logOut() {
     try {
-      const res = await fetch('https://wl.gefera.ru/auth/logout', {
-        credentials: 'include',
-      });
+      if (!mainApi) {
+        throw new Error('MainApi not found');
+      }
 
-      if (res.ok) {
-        navigate('/login', { replace: true });
-      } else {
-        const { message } = await res.json();
+      const { message } = await mainApi.signOut();
 
-        throw new Error(message);
+      if (message) {
+        navigate('login', { replace: true });
       }
     } catch (err) {
       console.log(err);
     }
   }
+
+  // async function logOut() {
+  //   try {
+  //     const res = await fetch('https://wl.gefera.ru/auth/logout', {
+  //       credentials: 'include',
+  //     });
+
+  //     if (res.ok) {
+  //       navigate('/login', { replace: true });
+  //     } else {
+  //       const { message } = await res.json();
+
+  //       throw new Error(message);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
   return (
     <header className="header">
@@ -50,15 +63,17 @@ function Header() {
           onClick={() => logOut()}
         />
       </Stack>
-      <IconButton
-        variant="outline"
-        aria-label="Home page"
-        fontSize={location.pathname === '/' ? '20px' : '23px'}
-        icon={location.pathname === '/' ? <RepeatIcon /> : <IoHomeOutline />}
-        onClick={() =>
-          location.pathname === '/' ? window.location.reload() : navigate('/')
-        }
-      />
+      <nav>
+        <NavLink to="/" reloadDocument={location.pathname === '/'}>
+          <IconButton
+            as="div"
+            variant="outline"
+            aria-label="Search page"
+            fontSize="20px"
+            icon={location.pathname === '/' ? <RepeatIcon /> : <SearchIcon />}
+          />
+        </NavLink>
+      </nav>
       <DarkModeSwitcher />
     </header>
   );

@@ -79,6 +79,7 @@ function Login() {
       backgroundColor="gray.200"
       justifyContent="center"
       alignItems="center"
+      as="main"
     >
       <Stack
         flexDir="column"

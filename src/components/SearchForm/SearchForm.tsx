@@ -34,7 +34,7 @@ function SearchForm({ onSubmit }: ISearchForm) {
     >
       <Stack spacing={0} flex="3">
         <Text as="b" fontSize="xs" margin="0">
-          Выставка:
+          Имя:
         </Text>
         <Select
           placeholder="Все"
