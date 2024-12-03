@@ -10,6 +10,7 @@ interface WebletterProps {
 const Webletter = forwardRef<HTMLIFrameElement, WebletterProps>(
   ({ id, isText, resizeIFrameToFirContent }, ref) => {
     const webletterUrl = `${import.meta.env.VITE_APP_WEBLETTER_URL}/${id}`;
+    // const webletterUrl = '../../../test/IMF.html';
 
     return (
       <section className={`webletter ${isText && 'hide'}`}>

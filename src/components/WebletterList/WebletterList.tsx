@@ -20,7 +20,7 @@ function WebletterTable({ webletterList }: WebletterTableProps) {
         <li className="webletter-table__row webletter-table__row_position_title">
           <p>Банер</p>
           <p>Имя</p>
-          <p>Темя</p>
+          <p>Тема</p>
           <p className="grid-center">Язык</p>
           <p className="grid-center">Размер</p>
           <p className="grid-center">Дата</p>

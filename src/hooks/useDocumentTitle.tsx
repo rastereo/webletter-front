@@ -9,6 +9,7 @@ function useDocumentTitle(title: string, prevailOnUnmount: boolean = false) {
 
   useEffect(() => {
     if (!prevailOnUnmount) document.title = defaultTitle.current;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
 

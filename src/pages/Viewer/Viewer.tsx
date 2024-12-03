@@ -9,6 +9,7 @@ import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import UserContext from '../../contexts/UserContext';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
+import ScrollUpButton from '../../components/ScrollUpButton/ScrollUpButton';
 
 import { ResultWebletter } from '../../types';
 
@@ -213,6 +214,7 @@ function Viewer() {
             ) : (
               <Loader />
             ))}
+          <ScrollUpButton />
         </>
       ) : errorMessage ? (
         <ErrorMessage message={errorMessage} />
