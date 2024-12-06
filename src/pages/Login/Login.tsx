@@ -114,9 +114,10 @@ function Login() {
                     value={username}
                     min={3}
                     onChange={(e) => {
-                      setUsername(e.target.value);
+                      setUsername(e.target.value.trim());
                       setErrorMessage('');
                     }}
+                    required
                   />
                 </InputGroup>
               </FormControl>
@@ -133,9 +134,10 @@ function Login() {
                     value={password}
                     min={3}
                     onChange={(e) => {
-                      setPassword(e.target.value);
+                      setPassword(e.target.value.trim());
                       setErrorMessage('');
                     }}
+                    required
                   />
                   <InputRightElement width="3.3rem">
                     <IconButton

@@ -2,13 +2,27 @@
   /* outline: 2px solid red; */
   /* height: auto; */
   /* margin: 0 auto; */
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;
 }
 
 .webletter__iframe {
   width: 100%;
   height: 100%;
-  border-radius: 16px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;
-
+  border-radius: 16px 16px 0 0;
   overflow-y: hidden;
+}
+
+.webletter__unsubscribe {
+  background-color: #ffffff;
+  font-family: arial, helvetica, sans-serif;
+  text-align: center;
+  color: #bababa;
+  font-size: 12px;
+  border-radius: 0 0 16px 16px;
+}
+
+.webletter__link {
+  text-decoration: underline;
+  color: #46a8c6
 }

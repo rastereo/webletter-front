@@ -25,6 +25,8 @@ export interface IUserContext {
   setExhibitionList: (exhibitions: string[]) => void;
   langList: string[] | null;
   setLangList: (langs: string[]) => void;
+  rangeDate: firstAndLastDate | null;
+  setRangeDate: (rangeDate: firstAndLastDate | null) => void;
   selectedFilter: Record<string, string>;
   setSelectedFilter: (select: any) => void;
   weblettersCount: number;
@@ -58,7 +60,13 @@ export interface InitialLoadData {
   exhibitionList: string[];
   langList: string[];
   weblettersCount: number;
+  firstAndLastDate: firstAndLastDate;
 }
+
+export type firstAndLastDate = {
+  first_upload_date: string;
+  last_upload_date: string;
+};
 
 export interface IWebletterText {
   text: string;

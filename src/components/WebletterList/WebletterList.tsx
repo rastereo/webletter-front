@@ -1,9 +1,7 @@
-import {
-  Badge,
-  Text,
-} from '@chakra-ui/react';
+import { Badge, Text } from '@chakra-ui/react';
 import ReactCountryFlag from 'react-country-flag';
 import { Link } from 'react-router-dom';
+import { MdOutlineImageNotSupported } from 'react-icons/md';
 
 import { ResultWebletter } from '../../types';
 
@@ -30,13 +28,18 @@ function WebletterTable({ webletterList }: WebletterTableProps) {
             ({ id, banner, exhibition, title, size, upload_date, lang }) => (
               <li key={id} className="webletter-table__item">
                 <Link to={`/${id}`} className="webletter-table__row">
-                  <img
-                    src={`${
-                      import.meta.env.VITE_APP_WEBLETTER_URL
-                    }/${id}/${banner}`}
-                    alt={exhibition ? exhibition : 'Banner'}
-                    className="webletter-table__banner"
-                  />
+                  {banner ? (
+                    <img
+                      src={`${
+                        import.meta.env.VITE_APP_WEBLETTER_URL
+                      }/${id}/${banner}`}
+                      alt={exhibition ? exhibition : 'Banner'}
+                      className="webletter-table__banner"
+                    />
+                  ) : (
+                    <MdOutlineImageNotSupported className="webletter-table__banner" />
+                  )}
+
                   <Text>{exhibition}</Text>
                   <Text>{title}</Text>
                   <ReactCountryFlag

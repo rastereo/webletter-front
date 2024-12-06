@@ -14,14 +14,19 @@ function ProtectedRoute({ children }: IProtectedRoute) {
 
   async function checkJWT() {
     try {
-      if (!mainApi) {
-        throw new Error('MainApi not found');
+      if (process.env.NODE_ENV === 'development') {
+        setUser('Developer');
+        setIsVerified(true);
+      } else {
+        if (!mainApi) {
+          throw new Error('MainApi not found');
+        }
+
+        const { name } = await mainApi.verifyJWT();
+
+        setUser(name);
+        setIsVerified(true);
       }
-
-      const { name } = await mainApi.verifyJWT();
-
-      setUser(name);
-      setIsVerified(true);
     } catch (err) {
       console.log(err);
 

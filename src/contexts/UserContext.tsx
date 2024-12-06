@@ -1,6 +1,7 @@
 import { createContext, useMemo, useState } from 'react';
 
 import {
+  firstAndLastDate,
   IUserContext,
   ResultWebletter,
   UserContextProviderProps,
@@ -16,6 +17,8 @@ const UserContext = createContext<IUserContext>({
   setExhibitionList: () => {},
   langList: null,
   setLangList: () => {},
+  rangeDate: null,
+  setRangeDate: () => {},
   selectedFilter: {},
   setSelectedFilter: () => {},
   weblettersCount: 0,
@@ -36,6 +39,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   );
   const [exhibitionList, setExhibitionList] = useState<string[] | null>(null);
   const [langList, setLangList] = useState<string[] | null>(null);
+  const [rangeDate, setRangeDate] = useState<firstAndLastDate | null>(null);
   const [selectedFilter, setSelectedFilter] = useState<Record<string, string>>(
     {}
   );
@@ -44,10 +48,15 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [isStartCounter, setIsStartCounter] = useState<boolean>(true);
 
+  const baseUrl =
+    process.env.NODE_ENV === 'development'
+      ? import.meta.env.VITE_APP_DEV_SERVER_BASE_URL
+      : import.meta.env.VITE_APP_SERVER_BASE_URL;
+
   const mainApi = useMemo(
     () =>
       new MainApi(
-        import.meta.env.VITE_APP_SERVER_BASE_URL,
+        baseUrl,
         import.meta.env.VITE_APP_LOGIN_PATH,
         import.meta.env.VITE_APP_VERIFY_PATH,
         import.meta.env.VITE_APP_LOGOUT_PATH,
@@ -56,6 +65,7 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
         import.meta.env.VITE_APP_WEBLETTER_TEXT_PATH,
         import.meta.env.VITE_APP_CREDENTIALS
       ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -70,6 +80,8 @@ export const UserContextProvider = ({ children }: UserContextProviderProps) => {
         setExhibitionList,
         langList,
         setLangList,
+        rangeDate,
+        setRangeDate,
         selectedFilter,
         setSelectedFilter,
         weblettersCount,

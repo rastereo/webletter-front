@@ -18,6 +18,7 @@ function Search() {
     setWebletterList,
     setExhibitionList,
     setLangList,
+    setRangeDate,
     weblettersCount,
     setWeblettersCount,
     isInitialLoadData,
@@ -35,12 +36,13 @@ function Search() {
 
       setIsInitialLoadData(true);
 
-      const { webletterList, exhibitionList, langList, weblettersCount } =
+      const { webletterList, exhibitionList, langList, weblettersCount, firstAndLastDate } =
         await mainApi.getInitialLoadData();
 
       setWebletterList(webletterList);
       setExhibitionList(exhibitionList.filter((exhibition) => exhibition));
       setLangList(langList.filter((lang) => lang));
+      setRangeDate(firstAndLastDate);
       setWeblettersCount(weblettersCount);
     } catch (err) {
       setWeblettersCount(0);

@@ -25,9 +25,16 @@ interface ShareButton {
 function ShareButton({ id }: ShareButton) {
   const { onCopy, value, setValue, hasCopied } = useClipboard('');
 
+  const downloadLink = `${
+    process.env.NODE_ENV === 'development'
+      ? import.meta.env.VITE_APP_DEV_SERVER_BASE_URL
+      : import.meta.env.VITE_APP_SERVER_BASE_URL
+  }${import.meta.env.VITE_APP_WEBLETTERS_PATH}/${id}/download`;
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(
     () => setValue(`${import.meta.env.VITE_APP_WEBLETTER_URL}/${id}`),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
@@ -47,7 +54,7 @@ function ShareButton({ id }: ShareButton) {
               <Text>
                 <b>Прямая ссылка на письмо:</b>
               </Text>
-              <Flex mb={2}>
+              <Flex mb={2} paddingBottom="5px">
                 <Input value={value} readOnly mr={2} />
                 <IconButton
                   aria-label="Copy link"
@@ -56,6 +63,17 @@ function ShareButton({ id }: ShareButton) {
                   onClick={onCopy}
                 />
               </Flex>
+              <Button
+                as="a"
+                href={downloadLink}
+                download
+                width="100%"
+                aria-label="Download archive"
+                variant="solid"
+                colorScheme="pink"
+              >
+                Скачать архив
+              </Button>
             </PopoverBody>
           </PopoverContent>
         </Portal>
