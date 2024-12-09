@@ -17,6 +17,7 @@ interface ViewerHeaderProps {
   handleDesktopButton: () => void;
   handleMobileButton: (width: number) => void;
   handleTextButton: () => void;
+  handleSavePDFButton: () => void;
   // toggleDarkMode: (isDark: boolean) => void;
 }
 
@@ -28,6 +29,7 @@ function ViewerHeader({
   handleDesktopButton,
   handleMobileButton,
   handleTextButton,
+  handleSavePDFButton,
   // toggleDarkMode,
 }: ViewerHeaderProps) {
   return (
@@ -62,7 +64,7 @@ function ViewerHeader({
           onClick={() => handleTextButton()}
         />
       </FormControl>
-      <ShareButton id={id} />
+      <ShareButton id={id} handleSavePDFButton={handleSavePDFButton} />
     </header>
   );
 }

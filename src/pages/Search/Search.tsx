@@ -29,12 +29,14 @@ function Search() {
   useDocumentTitle('Webletters', true);
 
   async function getLastWebletters() {
-    try {
-      if (!mainApi) {
-        throw new Error('MainApi not found');
-      }
+    if (!mainApi) {
+      throw new Error('MainApi not found');
+    }
 
+    try {
       setIsInitialLoadData(true);
+      setErrorMessage(null);
+      setWebletterList(null);
 
       const { webletterList, exhibitionList, langList, weblettersCount, firstAndLastDate } =
         await mainApi.getInitialLoadData();
@@ -59,15 +61,16 @@ function Search() {
     evt: FormEvent<HTMLFormElement>,
     selectedFilter: Record<string, string>
   ) {
+    if (!mainApi) {
+      throw new Error('MainApi not found');
+    }
+
     evt.preventDefault();
 
+    setErrorMessage(null);
     setWebletterList(null);
 
     try {
-      if (!mainApi) {
-        throw new Error('MainApi not found');
-      }
-
       const data = await mainApi.searchWebletters(selectedFilter);
 
       if ('webletterList' in data) {

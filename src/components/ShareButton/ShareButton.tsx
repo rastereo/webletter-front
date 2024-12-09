@@ -20,9 +20,10 @@ import './ShareButton.css';
 
 interface ShareButton {
   id: string;
+  handleSavePDFButton: () => void;
 }
 
-function ShareButton({ id }: ShareButton) {
+function ShareButton({ id, handleSavePDFButton }: ShareButton) {
   const { onCopy, value, setValue, hasCopied } = useClipboard('');
 
   const downloadLink = `${
@@ -71,8 +72,19 @@ function ShareButton({ id }: ShareButton) {
                 aria-label="Download archive"
                 variant="solid"
                 colorScheme="pink"
+                mb={2}
               >
                 Скачать архив
+              </Button>
+              <Button
+                type="button"
+                width="100%"
+                aria-label="Download pdf file"
+                variant="solid"
+                colorScheme="pink"
+                onClick={() => handleSavePDFButton()}
+              >
+                Скачать PDF
               </Button>
             </PopoverBody>
           </PopoverContent>

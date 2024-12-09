@@ -60,7 +60,7 @@ function SearchForm({ onSubmit }: ISearchForm) {
         <Input
           type="text"
           // placeholder="Новости выставки"
-          onChange={(e) => handleSelect('title', e.target.value.trim())}
+          onChange={(e) => handleSelect('title', e.target.value)}
           value={selectedFilter.title || ''}
           min={5}
         />
