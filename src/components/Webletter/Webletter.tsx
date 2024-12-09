@@ -21,7 +21,7 @@ const Webletter = forwardRef<HTMLIFrameElement, WebletterProps>(
           className="webletter__iframe"
           src={webletterUrl}
           ref={ref}
-          // scrolling="no"
+          scrolling="no"
           onLoad={() => resizeIFrameToFirContent()}
         />
         <p className="webletter__unsubscribe">
