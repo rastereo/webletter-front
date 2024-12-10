@@ -7,7 +7,7 @@ import Info from '../Info/Info';
 
 import { ResultWebletter } from '../../types';
 
-import './ViewerHeader.css';
+import './ViewerMenu.css';
 
 interface ViewerHeaderProps {
   id: string;
@@ -21,7 +21,7 @@ interface ViewerHeaderProps {
   // toggleDarkMode: (isDark: boolean) => void;
 }
 
-function ViewerHeader({
+function ViewerMenu({
   id,
   size,
   isText,
@@ -69,4 +69,4 @@ function ViewerHeader({
   );
 }
 
-export default ViewerHeader;
+export default ViewerMenu;

@@ -39,6 +39,7 @@ function DarkModeSwitcher() {
     if (isDark !== null) {
       toggleDarkMode(JSON.parse(isDark));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

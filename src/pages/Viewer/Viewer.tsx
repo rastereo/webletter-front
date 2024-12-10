@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 
-import ViewerHeader from '../../components/ViewerHeader/ViewerHeader';
+import ViewerMenu from '../../components/ViewerMenu/ViewerMenu';
 import Preview from '../../components/Preview/Preview';
 import PlainText from '../../components/PlainText/PlainText';
 import Webletter from '../../components/Webletter/Webletter';
@@ -136,23 +136,12 @@ function Viewer() {
     }
   }
 
-  const savePDFFile = useReactToPrint({ contentRef: iframeRef,documentTitle: info?.title });
-
-  // const reactToPrintFn = () => {
-  //   const content = iframeRef.current;
-  //   if (content) {
-  //     const iframeDoc =
-  //       content.contentDocument || content.contentWindow?.document || null;
-  //     if (iframeDoc) {
-  //       html2pdf(iframeDoc.body, {
-  //         filename: `${info?.title}.pdf`,
-  //         image: { type: 'jpeg', quality: 1 },
-  //         html2canvas: { scale: 2 },
-  //         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-  //       });
-  //     }
-  //   }
-  // };
+  const handlePrint = useReactToPrint({
+    contentRef: iframeRef,
+    documentTitle: info?.title,
+    copyShadowRoots: true,
+    ignoreGlobalStyles: false,
+  });
 
   useEffect(() => {
     getWebletterInfo();
@@ -191,17 +180,11 @@ function Viewer() {
     }
   }, [isDarkMode]);
 
-  // useReactToPrint({
-  //   contentRef: iframeRef,
-  //   nonce: 'nonce',
-  //   copyShadowRoots: true,
-  // });
-
   return (
     <main className="viewer">
       {info ? (
         <>
-          <ViewerHeader
+          <ViewerMenu
             id={id}
             size={size}
             isText={isText}
@@ -209,7 +192,7 @@ function Viewer() {
             handleDesktopButton={handleDesktopButton}
             handleMobileButton={handleMobileButton}
             handleTextButton={handleTextButton}
-            handleSavePDFButton={() => savePDFFile()}
+            handleSavePDFButton={handlePrint}
           />
           <div style={{ width: size ? size + 'px' : '100%' }}>
             <Preview

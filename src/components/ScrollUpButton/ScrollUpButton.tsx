@@ -8,7 +8,7 @@ function ScrollUpButton() {
   function handleScroll() {
     const heightPage = document.documentElement.scrollHeight;
 
-    if (window.scrollY > heightPage / 3) {
+    if (window.scrollY > heightPage / 5) {
       setShow(true);
     } else {
       setShow(false);

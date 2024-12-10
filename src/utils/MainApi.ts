@@ -25,7 +25,7 @@ class MainApi {
     this.webletterTextPath = webletterTextPath;
     this.credentials = credentials;
   }
-  private async getResponse(res: Response): Promise<any> {
+  private async getResponse(res: Response): Promise<any | Error> {
     if (res.ok) {
       return res.json();
     } else {
