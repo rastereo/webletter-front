@@ -8,7 +8,7 @@ import PlainText from '../../components/PlainText/PlainText';
 import Webletter from '../../components/Webletter/Webletter';
 import Loader from '../../components/Loader/Loader';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import UserContext from '../../contexts/UserContext';
+import UserContext from '../../app/contexts/UserContext';
 import useDocumentTitle from '../../hooks/useDocumentTitle';
 import ScrollUpButton from '../../components/ScrollUpButton/ScrollUpButton';
 

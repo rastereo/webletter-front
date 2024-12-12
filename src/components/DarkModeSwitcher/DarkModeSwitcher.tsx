@@ -5,7 +5,7 @@ import {
   enable as enableDarkReader,
   disable as disableDarkReader,
 } from 'darkreader';
-import UserContext from '../../contexts/UserContext';
+import UserContext from '../../app/contexts/UserContext';
 
 // interface DarkModeSwitcherProps {
 //   toggleDarkMode?: (isDark: boolean) => void;

@@ -5,7 +5,7 @@ import { MdLogout } from 'react-icons/md';
 import { RepeatIcon, SearchIcon } from '@chakra-ui/icons';
 
 import DarkModeSwitcher from '../DarkModeSwitcher/DarkModeSwitcher';
-import UserContext from '../../contexts/UserContext';
+import UserContext from '../../app/contexts/UserContext';
 
 import './Header.css';
 

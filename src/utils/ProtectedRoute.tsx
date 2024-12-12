@@ -3,7 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 import { IProtectedRoute } from '../types';
 import Loader from '../components/Loader/Loader';
-import UserContext from '../contexts/UserContext';
+import UserContext from '../app/contexts/UserContext';
 
 function ProtectedRoute({ children }: IProtectedRoute) {
   const [isVerified, setIsVerified] = useState<boolean | null>(null);

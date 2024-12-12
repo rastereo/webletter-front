@@ -1,12 +1,13 @@
 import { createContext, useMemo, useState } from 'react';
 
+import MainApi from '../../shared/api/MainApi';
+
 import {
   firstAndLastDate,
   IUserContext,
   ResultWebletter,
   UserContextProviderProps,
-} from '../types';
-import MainApi from '../utils/MainApi';
+} from '../../types';
 
 const UserContext = createContext<IUserContext>({
   user: null,

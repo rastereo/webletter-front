@@ -1,4 +1,5 @@
-import { FormEvent, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -17,15 +18,15 @@ import {
 import { FaLock, FaUserAlt } from 'react-icons/fa';
 import { BiSolidShow, BiHide } from 'react-icons/bi';
 
-import { useLocation, useNavigate } from 'react-router-dom';
-import UserContext from '../../contexts/UserContext';
-import logo from '../../assets/logo.png';
-import useDocumentTitle from '../../hooks/useDocumentTitle';
+import UserContext from '../../../app/contexts/UserContext';
+import logo from '../../../assets/logo.png';
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
+import { signIn } from '../api/signIn';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-function Login() {
+export function LoginPage() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [showPassword, setShowPassword] = useState(false);
@@ -43,32 +44,6 @@ function Login() {
 
   function handleShowClick() {
     setShowPassword(!showPassword);
-  }
-
-  async function onSubmit(evt: FormEvent<HTMLFormElement>) {
-    evt.preventDefault();
-
-    setErrorMessage('');
-
-    setLoading(true);
-
-    try {
-      if (!mainApi) {
-        throw new Error('MainApi not found');
-      }
-
-      await mainApi.signIn(username, password);
-
-      navigate(from, { replace: true });
-    } catch (err) {
-      if (err instanceof Error) {
-        setErrorMessage(err.message);
-      } else {
-        setErrorMessage('An unexpected error occurred. Please try again.');
-      }
-    } finally {
-      setLoading(false);
-    }
   }
 
   return (
@@ -94,7 +69,20 @@ function Login() {
           style={{ padding: '10px 0' }}
         />
         <Box minW={{ base: '90%', md: '368px' }}>
-          <form onSubmit={(evt) => onSubmit(evt)}>
+          <form
+            onSubmit={(evt) =>
+              signIn(
+                evt,
+                mainApi,
+                setErrorMessage,
+                setLoading,
+                navigate,
+                username,
+                password,
+                from
+              )
+            }
+          >
             <Stack
               spacing={4}
               p="1rem"
@@ -176,5 +164,3 @@ function Login() {
     </Flex>
   );
 }
-
-export default Login;

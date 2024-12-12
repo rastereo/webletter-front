@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useEffect, useState } from 'react';
 
-import UserContext from '../../contexts/UserContext';
+import UserContext from '../../app/contexts/UserContext';
 import Loader from '../../components/Loader/Loader';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';

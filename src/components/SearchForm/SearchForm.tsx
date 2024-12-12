@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { IconButton, Input, Select, Stack, Text } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-import UserContext from '../../contexts/UserContext';
+import UserContext from '../../app/contexts/UserContext';
 
 import { ISearchForm } from '../../types';
 

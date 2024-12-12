@@ -3,7 +3,7 @@ import {
   IUser,
   IWebletterText,
   ResultWebletter,
-} from '../types';
+} from '../../types';
 
 class MainApi {
   constructor(

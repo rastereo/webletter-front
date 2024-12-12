@@ -1,6 +1,6 @@
 import { Text } from '@chakra-ui/react';
 import CountUp from 'react-countup';
-import UserContext from '../../contexts/UserContext';
+import UserContext from '../../app/contexts/UserContext';
 import { useContext } from 'react';
 
 interface CounterProps {
