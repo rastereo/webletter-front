@@ -1,5 +1,5 @@
 import { FormEvent, ReactNode } from 'react';
-import MainApi from './shared/api/MainApi';
+import { MainApi } from '@shared/api';
 
 export interface ResultWebletter {
   exhibition: string | null;
@@ -37,7 +37,7 @@ export interface IUserContext {
   setIsDarkMode: (darkMode: boolean) => void;
   isStartCounter: boolean;
   setIsStartCounter: (start: boolean) => void;
-  mainApi: MainApi;
+  mainApi: MainApi | null;
 }
 
 export type UserContextProviderProps = {

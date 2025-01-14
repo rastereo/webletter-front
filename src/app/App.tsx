@@ -1,5 +1,5 @@
 import { Router } from './routers/Router';
-import { UserContextProvider } from './contexts/UserContext';
+import { UserContextProvider } from '@shared/contexts';
 
 import './styles/index.css';
 

@@ -1,16 +1,17 @@
 import { FormEvent } from 'react';
-import MainApi from '../../../shared/api/MainApi';
 import { NavigateFunction } from 'react-router-dom';
+
+import { MainApi } from '@shared/api';
 
 export async function signIn(
   evt: FormEvent<HTMLFormElement>,
-  mainApi: MainApi,
+  mainApi: MainApi | null,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction,
   username: string,
   password: string,
-  from: string,
+  from: string
 ) {
   evt.preventDefault();
 

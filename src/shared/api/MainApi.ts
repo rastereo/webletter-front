@@ -5,7 +5,7 @@ import {
   ResultWebletter,
 } from '../../types';
 
-class MainApi {
+export class MainApi {
   constructor(
     private baseUrl: string,
     private loginPath: string,
@@ -25,6 +25,7 @@ class MainApi {
     this.webletterTextPath = webletterTextPath;
     this.credentials = credentials;
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private async getResponse(res: Response): Promise<any | Error> {
     if (res.ok) {
       return res.json();
@@ -78,7 +79,7 @@ class MainApi {
     }
   }
 
-  async signOut(): Promise<{ message: string }> {
+  async signOut(): Promise<any | Error> {
     try {
       const res = await fetch(this.baseUrl + this.logoutPath, {
         credentials: 'include',
@@ -175,5 +176,3 @@ class MainApi {
     }
   }
 }
-
-export default MainApi;
