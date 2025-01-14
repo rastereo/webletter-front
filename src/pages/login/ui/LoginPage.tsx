@@ -20,7 +20,7 @@ import { BiSolidShow, BiHide } from 'react-icons/bi';
 
 import { UserContext } from '@shared/contexts';
 import useDocumentTitle from '@shared/lib/useDocumentTitle';
-import logo from '../../../../assets/logo.svg';
+import logo from '../../../../assets/images/logo.png';
 import { signIn } from '../api/signIn';
 
 const CFaUserAlt = chakra(FaUserAlt);
