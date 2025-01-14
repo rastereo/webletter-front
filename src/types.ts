@@ -1,5 +1,5 @@
 import { FormEvent, ReactNode } from 'react';
-import MainApi from './utils/MainApi';
+import { MainApi } from '@shared/api';
 
 export interface ResultWebletter {
   exhibition: string | null;

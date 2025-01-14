@@ -14,11 +14,18 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@widgets/*": ["./src/widgets/*"],
+    },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/components/DarkModeSwitcher/.tsx"]
+  "include": ["src", "src/widgets/Header/ui/DarkModeSwitcher/.tsx"]
 }
