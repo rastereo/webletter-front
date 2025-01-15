@@ -1,11 +1,10 @@
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 
+import { ProtectedRoute } from './utils/ProtectedRoute';
 import { Search } from '@pages/Search';
 import { Viewer } from '@pages/Viewer';
 import { NotFound } from '@pages/NotFound';
 import { LoginPage } from '@pages/login';
-
-import { ProtectedRoute } from './utils/ProtectedRoute';
 import { Header } from '@widgets/Header';
 
 const router = createBrowserRouter([

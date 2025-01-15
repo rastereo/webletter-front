@@ -1,42 +1,20 @@
 import { useContext, useEffect } from 'react';
 import { IconButton } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import {
-  enable as enableDarkReader,
-  disable as disableDarkReader,
-} from 'darkreader';
 
 import { UserContext } from '@shared/contexts';
+import { toggleDarkMode } from '@widgets/Header/lib/toggleDarkMode';
 
 function DarkModeSwitcher() {
   const { isDarkMode, setIsDarkMode } = useContext(UserContext);
-
-  function toggleDarkMode(isDarkMode: boolean) {
-    const darkModeTheme = {
-      brightness: 90, // Slightly reduced brightness for a dimmer look
-      contrast: 100, // Standard contrast; you can adjust higher based on needs
-      sepia: 0, // No sepia to maintain a cooler, more neutral tone
-      grayscale: 0, // Do not apply grayscale unless specifically desired
-    };
-
-    if (isDarkMode) {
-      enableDarkReader(darkModeTheme);
-    } else {
-      disableDarkReader();
-    }
-
-    setIsDarkMode(isDarkMode);
-
-    localStorage.setItem('isDark', `${isDarkMode}`);
-  }
 
   useEffect(() => {
     const isDark = localStorage.getItem('isDark');
 
     if (isDark !== null) {
-      toggleDarkMode(JSON.parse(isDark));
+      toggleDarkMode(JSON.parse(isDark), setIsDarkMode);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -46,7 +24,7 @@ function DarkModeSwitcher() {
       icon={isDarkMode ? <SunIcon /> : <MoonIcon />}
       size="md"
       fontSize="20px"
-      onClick={() => toggleDarkMode(!isDarkMode)}
+      onClick={() => toggleDarkMode(!isDarkMode, setIsDarkMode)}
       justifySelf="end"
     />
   );
