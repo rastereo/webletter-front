@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '@shared/contexts';
 import { resizeIFrameToFirContent } from '@pages/Viewer/model/resizeIframeToFirContent';
 
-import './Webletter.css';
+import './Webletter.scss';
 
 interface WebletterProps {
   id: string;

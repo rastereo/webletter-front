@@ -6,7 +6,7 @@ import { UserContext } from '@shared/contexts';
 
 import { ISearchForm } from '../../../../types';
 
-import './SearchForm.css';
+import './SearchForm.scss';
 
 function SearchForm({ onSubmit }: ISearchForm) {
   const {

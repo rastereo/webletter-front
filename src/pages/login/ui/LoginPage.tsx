@@ -42,10 +42,6 @@ export function LoginPage() {
 
   useDocumentTitle('Login', true);
 
-  function handleShowClick() {
-    setShowPassword(!showPassword);
-  }
-
   return (
     <Flex
       flexDirection="column"
@@ -131,7 +127,7 @@ export function LoginPage() {
                     <IconButton
                       type="button"
                       icon={showPassword ? <BiSolidShow /> : <BiHide />}
-                      onClick={handleShowClick}
+                      onClick={() => setShowPassword(!showPassword)}
                       aria-label="Show password"
                       h="1.75rem"
                     />

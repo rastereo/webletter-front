@@ -1,7 +1,7 @@
 import { Router } from './routers/Router';
 import { UserContextProvider } from '@shared/contexts';
 
-import './styles/index.css';
+import './styles/index.scss';
 
 function App() {
   return (

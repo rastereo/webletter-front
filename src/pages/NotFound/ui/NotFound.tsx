@@ -2,7 +2,7 @@ import { Heading, Tag } from '@chakra-ui/react';
 
 import useDocumentTitle from '@shared/lib/useDocumentTitle';
 
-import './NotFound.css';
+import './NotFound.scss';
 
 export function NotFound() {
   useDocumentTitle('Page Not Found', true);

@@ -1,0 +1,7 @@
+.viewer-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 10px 0 20px;
+  width: 100%;
+}

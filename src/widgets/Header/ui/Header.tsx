@@ -8,7 +8,7 @@ import DarkModeSwitcher from './DarkModeSwitcher/DarkModeSwitcher';
 import { signOut } from '../api/signOut';
 import { UserContext } from '@shared/contexts';
 
-import './Header.css';
+import './Header.scss';
 
 export function Header() {
   const { user, mainApi } = useContext(UserContext);

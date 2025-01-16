@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Badge } from '@chakra-ui/react';
 
-import './Info.css';
+import './Info.scss';
 
 interface InfoProps {
   uploadDate: string;

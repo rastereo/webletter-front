@@ -5,15 +5,11 @@ import { MdOutlineImageNotSupported } from 'react-icons/md';
 
 import { ResultWebletter } from '../../../../types';
 
-import './WebletterList.css';
+import './WebletterList.scss';
 
 interface WebletterTableProps {
   webletterList: ResultWebletter[];
 }
-
-// useEffect(() => {
-//   animate([['ul', { opacity: 1 }], ['li', { delay: stagger(.2) }]]);
-// }, [])
 
 function WebletterTable({ webletterList }: WebletterTableProps) {
   return (

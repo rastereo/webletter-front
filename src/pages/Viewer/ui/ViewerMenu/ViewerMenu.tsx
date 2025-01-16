@@ -7,7 +7,7 @@ import Info from '../Info/Info';
 
 import { ResultWebletter } from '../../../../types';
 
-import './ViewerMenu.css';
+import './ViewerMenu.scss';
 
 interface ViewerHeaderProps {
   id: string;
@@ -18,7 +18,6 @@ interface ViewerHeaderProps {
   handleMobileButton: (width: number) => void;
   handleTextButton: () => void;
   handleSavePDFButton: () => void;
-  // toggleDarkMode: (isDark: boolean) => void;
 }
 
 function ViewerMenu({
@@ -30,7 +29,6 @@ function ViewerMenu({
   handleMobileButton,
   handleTextButton,
   handleSavePDFButton,
-  // toggleDarkMode,
 }: ViewerHeaderProps) {
   return (
     <header className="viewer-header">

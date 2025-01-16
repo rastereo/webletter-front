@@ -1,9 +1,15 @@
+$border-radius: 16px;
+$border-color: #e2e8f0;
+$main-padding: 20px;
+$gray: #e6e6e6;
+$webletter-list-grid: 150px 0.5fr 1.1fr 40px 70px 0.3fr;
+
 :root {
-  --border-radius: 16px;
-  --border-color: #e2e8f0;
-  --main-padding: 20px;
-  --gray: #e6e6e6;
-  --webletter-list-grid: 150px 0.5fr 1.1fr 40px 70px 0.3fr;
+  --border-radius: #{$border-radius};
+  --border-color: #{$border-color};
+  --main-padding: #{$main-padding};
+  --gray: #{$gray};
+  --webletter-list-grid: #{$webletter-list-grid};
 }
 
 html {
@@ -11,13 +17,6 @@ html {
   scrollbar-gutter: stable;
   scroll-behavior: smooth;
 }
-
-/* html, body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-} */
 
 body {
   -moz-osx-font-smoothing: grayscale;
@@ -32,19 +31,6 @@ ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
-
-/* *,
-*::before,
-*::after {
-  outline: 2px solid red;
-} */
-
-.root {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start; */
 }
 
 p {
@@ -70,7 +56,6 @@ p {
 @media screen and (max-width: 500px) {
   .root {
     padding: 5px;
-    /* outline: 2px solid red; */
   }
 }
 

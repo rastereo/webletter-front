@@ -1,6 +1,6 @@
 import { Spinner } from '@chakra-ui/react';
 
-import './Loader.css';
+import './Loader.scss';
 
 export function Loader() {
   return (

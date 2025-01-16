@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { CheckIcon, CopyIcon } from '@chakra-ui/icons';
 
-import './ShareButton.css';
+import './ShareButton.scss';
 
 interface ShareButton {
   id: string;

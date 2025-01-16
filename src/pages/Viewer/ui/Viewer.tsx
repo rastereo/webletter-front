@@ -16,7 +16,7 @@ import { UserContext } from '@shared/contexts';
 
 import { ResultWebletter } from '../../../types';
 
-import './Viewer.css';
+import './Viewer.scss';
 
 export function Viewer() {
   const [info, setInfo] = useState<ResultWebletter | null>(null);

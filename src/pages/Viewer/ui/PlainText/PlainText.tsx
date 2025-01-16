@@ -1,6 +1,6 @@
 import { Highlight, FormControl, FormLabel, Switch } from '@chakra-ui/react';
 
-import './PlainText.css';
+import './PlainText.scss';
 
 interface PlainTextProps {
   text: string;

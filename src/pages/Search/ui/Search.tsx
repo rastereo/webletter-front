@@ -10,7 +10,7 @@ import { Loader } from '@widgets/Loader';
 import { UserContext } from '@shared/contexts';
 import useDocumentTitle from '@shared/lib/useDocumentTitle';
 
-import './Search.css';
+import './Search.scss';
 
 export function Search() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);

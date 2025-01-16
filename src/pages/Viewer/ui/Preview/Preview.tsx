@@ -1,6 +1,6 @@
 import { shortMonth } from '../../model/shortMonthList';
 
-import './Preview.css';
+import './Preview.scss';
 
 interface PreviewProps {
   size: number | null;
@@ -15,10 +15,9 @@ function Preview({
   exhibition,
   upload_date,
   title,
-  preheader
+  preheader,
 }: PreviewProps) {
   function createMonthAndDay(uploadDate: string): string {
-
     const date = new Date(uploadDate);
 
     const month = shortMonth[date.getMonth()];
@@ -33,7 +32,9 @@ function Preview({
       {size ? (
         <div className="preview__container preview__container_mobile">
           <div className="preview__wrapper">
-            <p className="preview__name preview__name_mobile overflow">{exhibition}</p>
+            <p className="preview__name preview__name_mobile overflow">
+              {exhibition}
+            </p>
             <p className="preview__date preview__date_mobile">
               {createMonthAndDay(upload_date)}
             </p>
@@ -54,9 +55,7 @@ function Preview({
             <span className="preview__title">{title}</span>{' '}
             <span className="preview__preheader">- {preheader}</span>
           </p>
-          <p className="preview__date">
-            {createMonthAndDay(upload_date)}
-          </p>
+          <p className="preview__date">{createMonthAndDay(upload_date)}</p>
         </div>
       )}
     </section>
