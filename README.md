@@ -9,7 +9,7 @@ Webletter is a web application designed to serve as a library for HTML emails. I
 
 ## 🔧Installation
 
-To get started with the Webletter Frontend project, ensure that you have [Node.js](https://nodejs.org/en) installed, then clone this repository and install the dependencies:
+To get started with the project, ensure that you have [Node.js](https://nodejs.org/en) installed. Then, clone this repository and install the dependencies:
 
 ```bash
 git clone https://github.com/rastereo/webletter-front.git
