@@ -1,16 +1,25 @@
+import { Dispatch } from '@reduxjs/toolkit';
+
+import { setList, setTotalCount } from '@entities/webletterList';
+import {
+  setExhibitionSelectList,
+  setLangSelectList,
+  setRangeDate,
+} from '@entities/searchConfig';
 import { MainApi } from '@shared/api';
 
-import { firstAndLastDate, ResultWebletter } from '../../../types';
+// import { firstAndLastDate } from '@/types';
 
 export async function getLastWebletters(
   mainApi: MainApi | null,
   setIsInitialLoadData: (InitialLoadData: boolean) => void,
   setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>,
-  setWebletterList: (webletters: ResultWebletter[] | null) => void,
-  setExhibitionList: (exhibitions: string[]) => void,
-  setLangList: (langs: string[]) => void,
-  setRangeDate: (rangeDate: firstAndLastDate | null) => void,
-  setWeblettersCount: (number: number) => void
+  // setWebletterList: (webletters: IWebletter[] | null) => void,
+  // setExhibitionList: (exhibitions: string[]) => void,
+  // setLangList: (langs: string[]) => void,
+  // setRangeDate: (rangeDate: firstAndLastDate | null) => void,
+  // setWeblettersCount: (number: number) => void,
+  dispatch: Dispatch
 ) {
   if (!mainApi) {
     throw new Error('MainApi not found');
@@ -19,7 +28,6 @@ export async function getLastWebletters(
   try {
     setIsInitialLoadData(true);
     setErrorMessage(null);
-    setWebletterList(null);
 
     const {
       webletterList,
@@ -29,13 +37,16 @@ export async function getLastWebletters(
       firstAndLastDate,
     } = await mainApi.getInitialLoadData();
 
-    setWebletterList(webletterList);
-    setExhibitionList(exhibitionList.filter((exhibition) => exhibition));
-    setLangList(langList.filter((lang) => lang));
-    setRangeDate(firstAndLastDate);
-    setWeblettersCount(weblettersCount);
+    dispatch(setList(webletterList));
+    dispatch(setTotalCount(weblettersCount));
+    dispatch(
+      setExhibitionSelectList(exhibitionList.filter((exhibition) => exhibition))
+    );
+    dispatch(setLangSelectList(langList.filter((lang) => lang)));
+
+    dispatch(setRangeDate(firstAndLastDate));
   } catch (err) {
-    setWeblettersCount(0);
+    // setWeblettersCount(0);
 
     if (err instanceof Error) {
       setErrorMessage(err.message);

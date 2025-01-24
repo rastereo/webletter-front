@@ -18,7 +18,7 @@ export function Counter({ quantity, text }: CounterProps) {
       {isStartCounter ? (
         <CountUp
           end={quantity}
-          duration={0.6}
+          duration={0.8}
           onEnd={() => setIsStartCounter(false)}
         />
       ) : (

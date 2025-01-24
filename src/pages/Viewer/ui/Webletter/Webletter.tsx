@@ -1,14 +1,9 @@
-import {
-  MutableRefObject,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { UserContext } from '@shared/contexts';
 import { resizeIFrameToFirContent } from '@pages/Viewer/model/resizeIframeToFirContent';
+import { RootState } from '@/app/store';
 
 import './Webletter.scss';
 
@@ -24,12 +19,12 @@ interface WebletterProps {
 function WebletterTest({ id, isHide, size, setIframeElement }: WebletterProps) {
   const [iframeDoc, setIframeDoc] = useState<Document | null>(null);
 
+  const { isDarkMode } = useSelector((state: RootState) => state.user);
+
   const webletterUrl =
     process.env.NODE_ENV === 'development'
       ? '../../../test/index.html'
       : `${import.meta.env.VITE_APP_WEBLETTER_URL}/${id}`;
-
-  const { isDarkMode } = useContext(UserContext);
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
@@ -39,6 +34,7 @@ function WebletterTest({ id, isHide, size, setIframeElement }: WebletterProps) {
     iframeDoc.getElementById('dark-mode')?.remove();
 
     const scriptDarkMode = iframeDoc.createElement('script');
+
     scriptDarkMode.type = 'module';
     scriptDarkMode.id = 'dark-mode';
 
@@ -66,9 +62,8 @@ function WebletterTest({ id, isHide, size, setIframeElement }: WebletterProps) {
         iframeRef.current?.contentWindow?.document ||
         null
     );
-    setIframeElement(iframeRef);
 
-    resizeIFrameToFirContent(iframeRef, iframeDoc);
+    setIframeElement(iframeRef);
   }
 
   useEffect(() => {

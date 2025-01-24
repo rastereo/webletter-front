@@ -1,8 +1,9 @@
 import {
   InitialLoadData,
+  ISelectedFilter,
   IUser,
+  IWebletter,
   IWebletterText,
-  ResultWebletter,
 } from '../../types';
 
 export class MainApi {
@@ -107,7 +108,7 @@ export class MainApi {
     }
   }
 
-  async getWebletterInfo(id: string): Promise<ResultWebletter> {
+  async getWebletterInfo(id: string): Promise<IWebletter> {
     try {
       const res = await fetch(this.baseUrl + this.weblettersPath + `/${id}`, {
         credentials: this.credentials,
@@ -121,7 +122,7 @@ export class MainApi {
     }
   }
 
-  async getWebletterText(id: string): Promise<IWebletterText> {
+  public async getWebletterText(id: string): Promise<IWebletterText> {
     try {
       console.log(
         this.baseUrl + this.weblettersPath + `/${id}` + this.webletterTextPath
@@ -142,33 +143,33 @@ export class MainApi {
   }
 
   async searchWebletters(
-    selectedFilters: Record<string, string>
-  ): Promise<ResultWebletter[] | InitialLoadData> {
+    selectedFilters: ISelectedFilter
+  ): Promise<IWebletter[]> {
     const params: string[] = [];
 
-    for (const key in selectedFilters) {
-      if (selectedFilters[key]) {
-        params.push(`${key}=${encodeURIComponent(selectedFilters[key])}`);
+    for (const [key, value] of Object.entries(selectedFilters)) {
+      if (value) {
+        params.push(`${key}=${encodeURIComponent(value)}`);
       }
     }
 
     try {
-      if (params.length > 0) {
-        const res = await fetch(
-          this.baseUrl +
-            this.weblettersPath +
-            this.searchPath +
-            '?' +
-            params.join('&'),
-          {
-            credentials: this.credentials,
-          }
-        );
+      // if (params.length > 0) {
+      const res = await fetch(
+        this.baseUrl +
+          this.weblettersPath +
+          this.searchPath +
+          '?' +
+          params.join('&'),
+        {
+          credentials: this.credentials,
+        }
+      );
 
-        return await this.getResponse(res);
-      } else {
-        return await this.getInitialLoadData();
-      }
+      return await this.getResponse(res);
+      // } else {
+      //   return await this.getInitialLoadData();
+      // }
     } catch (err) {
       console.log(err);
 

@@ -1,18 +1,24 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { IconButton } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-import { UserContext } from '@shared/contexts';
+import { RootState } from '@app/store';
 import { toggleDarkMode } from '@widgets/Header/lib/toggleDarkMode';
+import { setDarkMode } from '@entities/user/model/userSlice';
 
 function DarkModeSwitcher() {
-  const { isDarkMode, setIsDarkMode } = useContext(UserContext);
+  // const { isDarkMode, setIsDarkMode } = useContext(UserContext);
+  const { isDarkMode } = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const isDark = localStorage.getItem('isDark');
+    const isDarkMode = localStorage.getItem('isDark') === 'true';
 
-    if (isDark !== null) {
-      toggleDarkMode(JSON.parse(isDark), setIsDarkMode);
+    dispatch(setDarkMode(isDarkMode));
+
+    if (isDarkMode !== null) {
+      toggleDarkMode(isDarkMode, dispatch);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -24,7 +30,7 @@ function DarkModeSwitcher() {
       icon={isDarkMode ? <SunIcon /> : <MoonIcon />}
       size="md"
       fontSize="20px"
-      onClick={() => toggleDarkMode(!isDarkMode, setIsDarkMode)}
+      onClick={() => toggleDarkMode(!isDarkMode, dispatch)}
       justifySelf="end"
     />
   );

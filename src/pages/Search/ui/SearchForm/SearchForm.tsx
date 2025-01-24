@@ -1,34 +1,30 @@
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Input, Select, Stack, Text } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-import { UserContext } from '@shared/contexts';
+// import { UserContext } from '@shared/contexts';
 
-import { ISearchForm } from '../../../../types';
+import { ISearchForm } from '@/types';
+import { RootState } from '@app/store';
+import { setSelectedFilter } from '@entities/searchConfig';
 
 import './SearchForm.scss';
 
 function SearchForm({ onSubmit }: ISearchForm) {
-  const {
-    exhibitionList,
-    langList,
-    selectedFilter,
-    setSelectedFilter,
-    rangeDate,
-  } = useContext(UserContext);
+  const { exhibitionSelectList, langSelectList, rangeDate, selectedFilter } =
+    useSelector((state: RootState) => state.searchConfig);
 
-  function handleSelect(name: string, value: string) {
-    setSelectedFilter((prevSelection: Record<string, string>) => {
-      const updatedSelection = { ...prevSelection };
+  const dispatch = useDispatch();
 
-      if (value === 'Все') {
-        delete updatedSelection[name];
-      } else {
-        updatedSelection[name] = value;
-      }
+  function handleSelect(
+    name: 'exhibition' | 'title' | 'lang' | 'startDate' | 'endDate',
+    value: string
+  ) {
+    const updatedSelection = { ...selectedFilter };
 
-      return updatedSelection;
-    });
+    updatedSelection[name] = value;
+
+    dispatch(setSelectedFilter(updatedSelection));
   }
 
   return (
@@ -41,12 +37,12 @@ function SearchForm({ onSubmit }: ISearchForm) {
           Имя:
         </Text>
         <Select
-          placeholder="Все"
           onChange={(e) => handleSelect('exhibition', e.target.value)}
           value={selectedFilter.exhibition || ''}
         >
-          {exhibitionList &&
-            exhibitionList.map((exhibition: string, index: number) => (
+          <option></option>
+          {exhibitionSelectList &&
+            exhibitionSelectList.map((exhibition: string, index: number) => (
               <option key={index} value={exhibition}>
                 {exhibition}
               </option>
@@ -59,7 +55,6 @@ function SearchForm({ onSubmit }: ISearchForm) {
         </Text>
         <Input
           type="text"
-          // placeholder="Новости выставки"
           onChange={(e) => handleSelect('title', e.target.value)}
           value={selectedFilter.title || ''}
           min={5}
@@ -70,12 +65,12 @@ function SearchForm({ onSubmit }: ISearchForm) {
           Язык:
         </Text>
         <Select
-          placeholder="Все"
           onChange={(e) => handleSelect('lang', e.target.value)}
           value={selectedFilter.lang || ''}
         >
-          {langList &&
-            langList.map((lang: string, index: number) => (
+          <option></option>
+          {langSelectList &&
+            langSelectList.map((lang: string, index: number) => (
               <option key={index} value={lang}>
                 {lang}
               </option>
@@ -92,12 +87,12 @@ function SearchForm({ onSubmit }: ISearchForm) {
             handleSelect('startDate', new Date(e.target.value).toISOString())
           }
           min={
-            rangeDate && rangeDate.first_upload_date
+            rangeDate.first_upload_date
               ? rangeDate.first_upload_date.split('T')[0]
               : new Date().toISOString()
           }
           max={
-            rangeDate && rangeDate.last_upload_date
+            rangeDate.last_upload_date
               ? rangeDate.last_upload_date.split('T')[0]
               : new Date().toISOString()
           }
@@ -113,12 +108,12 @@ function SearchForm({ onSubmit }: ISearchForm) {
             handleSelect('endDate', new Date(e.target.value).toISOString())
           }
           min={
-            rangeDate && rangeDate.first_upload_date
+            rangeDate.first_upload_date
               ? rangeDate.first_upload_date.split('T')[0]
               : new Date().toISOString()
           }
           max={
-            rangeDate && rangeDate.last_upload_date
+            rangeDate.last_upload_date
               ? rangeDate.last_upload_date.split('T')[0]
               : new Date().toISOString()
           }

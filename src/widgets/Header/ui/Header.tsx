@@ -3,31 +3,37 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { Avatar, AvatarBadge, IconButton, Stack, Text } from '@chakra-ui/react';
 import { MdLogout } from 'react-icons/md';
 import { RepeatIcon, SearchIcon } from '@chakra-ui/icons';
+import { useDispatch, useSelector } from 'react-redux';
 
 import DarkModeSwitcher from './DarkModeSwitcher/DarkModeSwitcher';
 import { signOut } from '../api/signOut';
+import type { RootState } from '@app/store';
 import { UserContext } from '@shared/contexts';
 
 import './Header.scss';
 
 export function Header() {
-  const { user, mainApi } = useContext(UserContext);
+  const { mainApi } = useContext(UserContext);
+
+  const { name } = useSelector((state: RootState) => state.user);
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   return (
     <header className="header">
       <Stack direction="row" alignItems="center" justifySelf="start">
-        <Avatar name={user || ''} size="sm">
+        <Avatar name={name} size="sm">
           <AvatarBadge boxSize="1.25em" bg="green.400" />
         </Avatar>
-        <Text fontWeight="bold">{user}</Text>
+        <Text fontWeight="bold">{name}</Text>
         <IconButton
           variant="outline"
           aria-label="Logout"
           icon={<MdLogout />}
           size="sm"
-          onClick={() => signOut(mainApi, navigate)}
+          onClick={() => signOut(mainApi, navigate, dispatch)}
         />
       </Stack>
       <nav>

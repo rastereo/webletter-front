@@ -14,12 +14,12 @@ import { Loader } from '@widgets/Loader';
 import useDocumentTitle from '@shared/lib/useDocumentTitle';
 import { UserContext } from '@shared/contexts';
 
-import { ResultWebletter } from '../../../types';
+import { IWebletter } from '@/types';
 
 import './Viewer.scss';
 
 export function Viewer() {
-  const [info, setInfo] = useState<ResultWebletter | null>(null);
+  const [info, setInfo] = useState<IWebletter | null>(null);
   const [size, setSize] = useState<number | null>(null);
   const [text, setText] = useState<string | null>(null);
   const [isText, setIsText] = useState<boolean>(false);

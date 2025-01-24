@@ -3,12 +3,12 @@ import { Badge, Fade, Text } from '@chakra-ui/react';
 import ReactCountryFlag from 'react-country-flag';
 import { MdOutlineImageNotSupported } from 'react-icons/md';
 
-import { ResultWebletter } from '../../../../types';
+import { IWebletter } from '@/types';
 
 import './WebletterList.scss';
 
 interface WebletterTableProps {
-  webletterList: ResultWebletter[];
+  webletterList: IWebletter[];
 }
 
 function WebletterTable({ webletterList }: WebletterTableProps) {

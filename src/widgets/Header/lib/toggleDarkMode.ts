@@ -1,11 +1,13 @@
+import { Dispatch, UnknownAction } from '@reduxjs/toolkit';
 import {
   enable as enableDarkReader,
   disable as disableDarkReader,
 } from 'darkreader';
+import { setDarkMode } from '@entities/user';
 
 export function toggleDarkMode(
   isDarkMode: boolean,
-  setIsDarkMode: (value: boolean) => void
+  dispatch: Dispatch<UnknownAction>
 ) {
   const darkModeTheme = {
     brightness: 90, // Slightly reduced brightness for a dimmer look
@@ -20,7 +22,7 @@ export function toggleDarkMode(
     disableDarkReader();
   }
 
-  setIsDarkMode(isDarkMode);
+  dispatch(setDarkMode(isDarkMode));
 
   localStorage.setItem('isDark', `${isDarkMode}`);
 }

@@ -1,42 +1,27 @@
-import { FormEvent } from 'react';
+import { Dispatch } from '@reduxjs/toolkit';
 
 import { MainApi } from '@shared/api';
-
-import { ResultWebletter } from '../../../types';
+import { setList } from '@/entities/webletterList';
+import { ISelectedFilter } from '@/types';
 
 export async function searchWebletters(
   mainApi: MainApi | null,
-  evt: FormEvent<HTMLFormElement>,
-  selectedFilter: Record<string, string>,
+  selectedFilter: ISelectedFilter,
   setErrorMessage: (value: React.SetStateAction<string | null>) => void,
-  setWebletterList: (webletters: ResultWebletter[] | null) => void,
   setIsInitialLoadData: (InitialLoadData: boolean) => void,
-  setWeblettersCount: (number: number) => void
+  dispatch: Dispatch
 ) {
   if (!mainApi) {
     throw new Error('MainApi not found');
   }
 
-  evt.preventDefault();
-
-  setErrorMessage(null);
-  setWebletterList(null);
-
   try {
-    const data = await mainApi.searchWebletters(selectedFilter);
+    setIsInitialLoadData(false);
 
-    if ('webletterList' in data) {
-      setIsInitialLoadData(true);
-      setWebletterList(data.webletterList);
-      setWeblettersCount(data.weblettersCount);
-    } else if (Array.isArray(data)) {
-      setIsInitialLoadData(false);
-      setWebletterList(data);
-      setWeblettersCount(data.length);
-    }
+    const webLetterList = await mainApi.searchWebletters(selectedFilter);
+
+    dispatch(setList(webLetterList));
   } catch (err) {
-    setWeblettersCount(0);
-
     if (err instanceof Error) {
       setErrorMessage(err.message);
     } else {

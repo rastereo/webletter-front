@@ -1,10 +1,13 @@
 import { NavigateFunction } from 'react-router-dom';
 
 import { MainApi } from '@shared/api';
+import { Dispatch } from '@reduxjs/toolkit';
+import { logout } from '@entities/user';
 
 export async function signOut(
   mainApi: MainApi | null,
-  navigate: NavigateFunction
+  navigate: NavigateFunction,
+  dispatch: Dispatch
 ) {
   try {
     if (!mainApi) {
@@ -12,6 +15,8 @@ export async function signOut(
     }
 
     await mainApi.signOut();
+
+    dispatch(logout());
 
     navigate('login', { replace: true });
   } catch (err) {

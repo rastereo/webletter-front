@@ -1,10 +1,10 @@
 import { MainApi } from '@shared/api';
 
-import { ResultWebletter } from '../../../types';
+import { IWebletter } from '@/types';
 
 export async function getWebletterInfo(
   mainApi: MainApi | null,
-  setInfo: (value: React.SetStateAction<ResultWebletter | null>) => void,
+  setInfo: (value: React.SetStateAction<IWebletter | null>) => void,
   setErrorMessage: (value: React.SetStateAction<string | null>) => void,
   id: string
 ) {

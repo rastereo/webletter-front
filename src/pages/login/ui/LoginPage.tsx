@@ -18,10 +18,10 @@ import {
 import { FaLock, FaUserAlt } from 'react-icons/fa';
 import { BiSolidShow, BiHide } from 'react-icons/bi';
 
-import { UserContext } from '@shared/contexts';
-import useDocumentTitle from '@shared/lib/useDocumentTitle';
 import logo from '../../../../assets/images/logo.png';
 import { signIn } from '../api/signIn';
+import { UserContext } from '@shared/contexts';
+import useDocumentTitle from '@shared/lib/useDocumentTitle';
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);

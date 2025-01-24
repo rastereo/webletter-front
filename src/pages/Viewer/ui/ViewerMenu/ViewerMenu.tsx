@@ -5,7 +5,7 @@ import { FiFileText } from 'react-icons/fi';
 import ShareButton from '../ShareButton/ShareButton';
 import Info from '../Info/Info';
 
-import { ResultWebletter } from '../../../../types';
+import { IWebletter } from '@/types';
 
 import './ViewerMenu.scss';
 
@@ -13,7 +13,7 @@ interface ViewerHeaderProps {
   id: string;
   size: number | null;
   isText: boolean;
-  info: ResultWebletter
+  info: IWebletter
   handleDesktopButton: () => void;
   handleMobileButton: (width: number) => void;
   handleTextButton: () => void;
