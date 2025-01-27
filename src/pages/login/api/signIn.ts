@@ -1,11 +1,10 @@
 import { FormEvent } from 'react';
 import { NavigateFunction } from 'react-router-dom';
 
-import { MainApi } from '@shared/api';
+import { mainApi } from '@shared/api';
 
 export async function signIn(
   evt: FormEvent<HTMLFormElement>,
-  mainApi: MainApi | null,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction,
@@ -20,10 +19,6 @@ export async function signIn(
   setLoading(true);
 
   try {
-    if (!mainApi) {
-      throw new Error('MainApi not found');
-    }
-
     await mainApi.signIn(username, password);
 
     navigate(from, { replace: true });

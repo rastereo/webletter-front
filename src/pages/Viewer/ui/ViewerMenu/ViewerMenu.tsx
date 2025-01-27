@@ -5,7 +5,7 @@ import { FiFileText } from 'react-icons/fi';
 import ShareButton from '../ShareButton/ShareButton';
 import Info from '../Info/Info';
 
-import { IWebletter } from '@/types';
+import { IWebletter } from '@types';
 
 import './ViewerMenu.scss';
 

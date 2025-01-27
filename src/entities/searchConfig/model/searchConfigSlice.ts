@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IFirstAndLastDate, ISelectedFilter } from '@/types';
+import { IFirstAndLastDate, ISelectedFilter } from '@types';
 
 interface ISearchConfigState {
   exhibitionSelectList: string[];
   langSelectList: string[];
   rangeDate: IFirstAndLastDate;
   selectedFilter: ISelectedFilter;
+  isStartCounter: boolean
 }
 
 const initialState: ISearchConfigState = {
@@ -23,6 +24,7 @@ const initialState: ISearchConfigState = {
     startDate: '',
     endDate: '',
   },
+  isStartCounter: true,
 };
 
 export const searchConfigSlice = createSlice({
@@ -41,6 +43,9 @@ export const searchConfigSlice = createSlice({
     setSelectedFilter: (state, action: PayloadAction<ISelectedFilter>) => {
       state.selectedFilter = action.payload;
     },
+    setIsStartCounter: (state, action: PayloadAction<boolean>) => {
+      state.isStartCounter = action.payload;
+    },
   },
 });
 
@@ -49,5 +54,6 @@ export const {
   setLangSelectList,
   setRangeDate,
   setSelectedFilter,
+  setIsStartCounter,
 } = searchConfigSlice.actions;
 export default searchConfigSlice.reducer;

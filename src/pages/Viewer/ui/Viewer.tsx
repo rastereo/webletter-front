@@ -1,4 +1,4 @@
-import { MutableRefObject, useContext, useEffect, useState } from 'react';
+import { MutableRefObject, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
 
@@ -12,9 +12,8 @@ import { getText } from '../api/getText';
 import { ErrorMessage } from '@widgets/ErrorMessage';
 import { Loader } from '@widgets/Loader';
 import useDocumentTitle from '@shared/lib/useDocumentTitle';
-import { UserContext } from '@shared/contexts';
 
-import { IWebletter } from '@/types';
+import { IWebletter } from '@types';
 
 import './Viewer.scss';
 
@@ -34,8 +33,6 @@ export function Viewer() {
   const { pathname } = useLocation();
 
   const id = pathname.replace(/\//g, '');
-
-  const { mainApi } = useContext(UserContext);
 
   useDocumentTitle(`Viewer – ${info?.title}`, true);
 
@@ -72,13 +69,12 @@ export function Viewer() {
   });
 
   useEffect(() => {
-    getWebletterInfo(mainApi, setInfo, setErrorMessage, id);
+    getWebletterInfo(setInfo, setErrorMessage, id);
   }, []);
 
   useEffect(() => {
     if (!text && isText)
       getText(
-        mainApi,
         id,
         setText,
         setMisspelledWords,

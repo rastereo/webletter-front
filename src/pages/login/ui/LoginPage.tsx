@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -18,9 +18,8 @@ import {
 import { FaLock, FaUserAlt } from 'react-icons/fa';
 import { BiSolidShow, BiHide } from 'react-icons/bi';
 
-import logo from '../../../../assets/images/logo.png';
+import logo from '@/../assets/images/logo.png';
 import { signIn } from '../api/signIn';
-import { UserContext } from '@shared/contexts';
 import useDocumentTitle from '@shared/lib/useDocumentTitle';
 
 const CFaUserAlt = chakra(FaUserAlt);
@@ -32,8 +31,6 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-
-  const { mainApi } = useContext(UserContext);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -69,7 +66,6 @@ export function LoginPage() {
             onSubmit={(evt) =>
               signIn(
                 evt,
-                mainApi,
                 setErrorMessage,
                 setLoading,
                 navigate,

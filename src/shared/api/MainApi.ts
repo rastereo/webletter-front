@@ -6,7 +6,7 @@ import {
   IWebletterText,
 } from '../../types';
 
-export class MainApi {
+class MainApi {
   constructor(
     private baseUrl: string,
     private loginPath: string,
@@ -167,9 +167,6 @@ export class MainApi {
       );
 
       return await this.getResponse(res);
-      // } else {
-      //   return await this.getInitialLoadData();
-      // }
     } catch (err) {
       console.log(err);
 
@@ -177,3 +174,19 @@ export class MainApi {
     }
   }
 }
+
+const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? import.meta.env.VITE_APP_DEV_SERVER_BASE_URL
+    : import.meta.env.VITE_APP_SERVER_BASE_URL;
+
+export const mainApi = new MainApi(
+  baseUrl,
+  import.meta.env.VITE_APP_LOGIN_PATH,
+  import.meta.env.VITE_APP_VERIFY_PATH,
+  import.meta.env.VITE_APP_LOGOUT_PATH,
+  import.meta.env.VITE_APP_WEBLETTERS_PATH,
+  import.meta.env.VITE_APP_SEARCH_WEBLETTERS_PATH,
+  import.meta.env.VITE_APP_WEBLETTER_TEXT_PATH,
+  import.meta.env.VITE_APP_CREDENTIALS
+);

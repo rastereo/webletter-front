@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import WebletterList from './WebletterList/WebletterList';
@@ -11,23 +11,20 @@ import { RootState } from '@app/store';
 import { ErrorMessage } from '@widgets/ErrorMessage';
 import { Loader } from '@widgets/Loader';
 import { setList } from '@entities/webletterList';
-import { UserContext } from '@shared/contexts';
 import useDocumentTitle from '@shared/lib/useDocumentTitle';
 
+import { ISelectedFilter } from '@types';
+
 import './Search.scss';
-import { ISelectedFilter } from '@/types';
 
 export function Search() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const { list, count, totalCount } = useSelector(
+  const { list, count, totalCount, isInitialLoadData } = useSelector(
     (state: RootState) => state.webletterList
   );
 
   const dispatch = useDispatch();
-
-  const { isInitialLoadData, setIsInitialLoadData, mainApi } =
-    useContext(UserContext);
 
   useDocumentTitle('Webletters', true);
 
@@ -40,31 +37,15 @@ export function Search() {
     dispatch(setList([]));
 
     if (Object.values(selectedFilter).every((value) => value === '')) {
-      getLastWebletters(
-        mainApi,
-        setIsInitialLoadData,
-        setErrorMessage,
-        dispatch
-      );
+      getLastWebletters(setErrorMessage, dispatch);
     } else {
-      searchWebletters(
-        mainApi,
-        selectedFilter,
-        setErrorMessage,
-        setIsInitialLoadData,
-        dispatch
-      );
+      searchWebletters(selectedFilter, setErrorMessage, dispatch);
     }
   }
 
   useEffect(() => {
     if (count === 0) {
-      getLastWebletters(
-        mainApi,
-        setIsInitialLoadData,
-        setErrorMessage,
-        dispatch
-      );
+      getLastWebletters(setErrorMessage, dispatch);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

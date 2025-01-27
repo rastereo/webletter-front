@@ -1,8 +1,9 @@
-import { useContext } from 'react';
 import { Text } from '@chakra-ui/react';
 import CountUp from 'react-countup';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { UserContext } from '@shared/contexts';
+import { RootState } from '@app/store';
+import { setIsStartCounter } from '@entities/searchConfig';
 
 interface CounterProps {
   quantity: number;
@@ -10,7 +11,11 @@ interface CounterProps {
 }
 
 export function Counter({ quantity, text }: CounterProps) {
-  const { isStartCounter, setIsStartCounter } = useContext(UserContext);
+  const { isStartCounter } = useSelector(
+    (state: RootState) => state.searchConfig
+  );
+
+  const dispatch = useDispatch();
 
   return (
     <Text fontSize="sm" color="#a4a3a3" padding="0 0 20px">
@@ -19,7 +24,7 @@ export function Counter({ quantity, text }: CounterProps) {
         <CountUp
           end={quantity}
           duration={0.8}
-          onEnd={() => setIsStartCounter(false)}
+          onEnd={() => dispatch(setIsStartCounter(false))}
         />
       ) : (
         quantity

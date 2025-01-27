@@ -1,19 +1,17 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Loader } from '@widgets/Loader';
-import { UserContext } from '@shared/contexts';
 // import { login, logout } from '@entities/user/model/userSlice';
 import { RootState } from '@app/store';
 
-import { IProtectedRoute } from '@/types';
+import { IProtectedRoute } from '@types';
 import { login, logout } from '@/entities/user';
+import { mainApi } from '@/shared/api';
 
 export function ProtectedRoute({ children }: IProtectedRoute) {
   const { isVerified } = useSelector((state: RootState) => state.user);
-
-  const { mainApi } = useContext(UserContext);
 
   const dispatch = useDispatch();
 

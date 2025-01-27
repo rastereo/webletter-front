@@ -8,7 +8,6 @@ import { toggleDarkMode } from '@widgets/Header/lib/toggleDarkMode';
 import { setDarkMode } from '@entities/user/model/userSlice';
 
 function DarkModeSwitcher() {
-  // const { isDarkMode, setIsDarkMode } = useContext(UserContext);
   const { isDarkMode } = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 

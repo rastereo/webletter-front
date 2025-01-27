@@ -21,6 +21,7 @@ export default defineConfig({
       '@features': resolve('src/features'),
       '@entities': resolve('src/entities'),
       '@shared': resolve('src/shared'),
+      '@types': resolve('src/types'),
     },
   },
 });

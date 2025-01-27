@@ -1,11 +1,10 @@
 import { NavigateFunction } from 'react-router-dom';
 
-import { MainApi } from '@shared/api';
 import { Dispatch } from '@reduxjs/toolkit';
 import { logout } from '@entities/user';
+import { mainApi } from '@shared/api';
 
 export async function signOut(
-  mainApi: MainApi | null,
   navigate: NavigateFunction,
   dispatch: Dispatch
 ) {

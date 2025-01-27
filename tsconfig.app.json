@@ -38,6 +38,9 @@
       "@shared/*": [
         "./src/shared/*"
       ],
+      "@types": [
+        "./src/types"
+      ],
     },
     /* Linting */
     "strict": true,

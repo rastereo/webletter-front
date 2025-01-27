@@ -4,7 +4,7 @@ import { SearchIcon } from '@chakra-ui/icons';
 
 // import { UserContext } from '@shared/contexts';
 
-import { ISearchForm } from '@/types';
+import { ISearchForm } from '@types';
 import { RootState } from '@app/store';
 import { setSelectedFilter } from '@entities/searchConfig';
 

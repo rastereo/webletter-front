@@ -1,1 +1,1 @@
-export { MainApi } from './MainApi';
+export { mainApi } from './MainApi';

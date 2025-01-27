@@ -4,4 +4,5 @@ export {
   setLangSelectList,
   setRangeDate,
   setSelectedFilter,
+  setIsStartCounter,
 } from './model/searchConfigSlice';

@@ -1,5 +1,4 @@
 import { FormEvent, ReactNode } from 'react';
-import { MainApi } from '@shared/api';
 
 export interface IWebletter {
   exhibition: string | null;
@@ -29,38 +28,6 @@ export interface ISelectedFilter {
 export interface IProtectedRoute {
   children: ReactNode;
 }
-
-export interface IUserContext {
-  // user: string | null;
-  // setUser: (user: string | null) => void;
-  // webletterList: IWebletter[] | null;
-  // setWebletterList: (webletters: IWebletter[] | null) => void;
-  // exhibitionList: string[] | null;
-  // setExhibitionList: (exhibitions: string[]) => void;
-  // langList: string[] | null;
-  // setLangList: (langs: string[]) => void;
-  // rangeDate: firstAndLastDate | null;
-  // setRangeDate: (rangeDate: firstAndLastDate | null) => void;
-  // selectedFilter: Record<string, string>;
-  // setSelectedFilter: (select: any) => void;
-  // weblettersCount: number;
-  // setWeblettersCount: (number: number) => void;
-  isInitialLoadData: boolean;
-  setIsInitialLoadData: (InitialLoadData: boolean) => void;
-  // isDarkMode: boolean;
-  // setIsDarkMode: (darkMode: boolean) => void;
-  isStartCounter: boolean;
-  setIsStartCounter: (start: boolean) => void;
-  mainApi: MainApi | null;
-}
-
-export type UserContextProviderProps = {
-  children: ReactNode;
-};
-
-// export interface IUser {
-//   name: string;
-// }
 
 export interface ISearchForm {
   onSubmit: (
