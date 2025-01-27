@@ -5,7 +5,7 @@
   <img src="https://i.ibb.co/KDVGPtt/2.png" alt="Image 2" width="400" border="0" />
 </div>
 
-Webletter is a web application designed to serve as a library for HTML emails. It allows users to search emails by sender name, subject, language, and date, as well as to view each email in detail.
+WebLetter is a web application for browsing a catalog of ready-made HTML emails. It provides a user-friendly interface for searching emails by sender name, subject, language, and date, as well as viewing each email in detail. This makes it especially useful for marketers and other professionals involved in email campaigns.
 
 ## 🔧Installation
 
@@ -83,6 +83,7 @@ The project leverages the following technologies:
 
 - [Vite](https://vite.dev/)
 - [React](https://react.dev/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Chakra UI](https://www.chakra-ui.com/)
 - [Dark Reader](https://www.npmjs.com/package/darkreader)
