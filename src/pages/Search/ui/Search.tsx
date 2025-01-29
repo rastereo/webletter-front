@@ -62,7 +62,9 @@ export function Search() {
           <WebletterList webletterList={list} />
         </>
       ) : errorMessage ? (
-        <ErrorMessage message={errorMessage} />
+        <p className="error">
+          <ErrorMessage message={errorMessage} />
+        </p>
       ) : (
         <Loader />
       )}

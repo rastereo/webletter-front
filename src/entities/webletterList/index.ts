@@ -3,4 +3,5 @@ export {
   setList,
   setIsInitialLoadData,
   setTotalCount,
+  setViewMode,
 } from './model/webletterListSlice';

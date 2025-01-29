@@ -3,4 +3,10 @@
   grid-template-columns: 1fr auto 1fr;
   padding: 20px 20px 10px;
   width: 100%;
+
+  @media screen and (max-width: 768px) {
+    & {
+      padding: 10px;
+    }
+  }
 }

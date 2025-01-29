@@ -6,4 +6,12 @@
   padding-bottom: 10px;
   gap: 10px;
   margin: 0 auto;
+
+  @media screen and (max-width: 767px) {
+    & {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+  }
 }

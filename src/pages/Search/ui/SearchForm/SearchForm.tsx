@@ -32,7 +32,7 @@ function SearchForm({ onSubmit }: ISearchForm) {
       className="search-form"
       onSubmit={(evt) => onSubmit(evt, selectedFilter)}
     >
-      <Stack spacing={0} flex="3">
+      <Stack spacing={0} flex="3" width="100%">
         <Text as="b" fontSize="xs" margin="0">
           Имя:
         </Text>
@@ -49,7 +49,7 @@ function SearchForm({ onSubmit }: ISearchForm) {
             ))}
         </Select>
       </Stack>
-      <Stack spacing={0} flex="3">
+      <Stack spacing={0} flex="3" width="100%">
         <Text as="b" fontSize="xs" margin="0">
           Тема:
         </Text>
@@ -60,7 +60,7 @@ function SearchForm({ onSubmit }: ISearchForm) {
           min={5}
         />
       </Stack>
-      <Stack spacing={0} flex="1">
+      <Stack spacing={0} flex="1" width="100%">
         <Text as="label" fontSize="xs" margin="0" fontWeight="600">
           Язык:
         </Text>
@@ -77,7 +77,7 @@ function SearchForm({ onSubmit }: ISearchForm) {
             ))}
         </Select>
       </Stack>
-      <Stack spacing={0} flex="1">
+      <Stack spacing={0} flex="1" width="100%">
         <Text as="label" fontSize="xs" margin="0" fontWeight="600">
           C:
         </Text>
@@ -98,7 +98,7 @@ function SearchForm({ onSubmit }: ISearchForm) {
           }
         />
       </Stack>
-      <Stack spacing={0} flex="1">
+      <Stack spacing={0} flex="1" width="100%">
         <Text as="label" fontSize="xs" margin="0" fontWeight="600">
           По:
         </Text>
@@ -124,6 +124,8 @@ function SearchForm({ onSubmit }: ISearchForm) {
         aria-label="Search webletter"
         colorScheme="blue"
         type="submit"
+        width={{ base: '100%', md: 'auto', xl: 'auto' }}
+        mt={{ base: '10px', md: '0' }}
       />
       {/* <IconButton
         icon={<RepeatIcon />}

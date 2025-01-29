@@ -27,6 +27,14 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -53,11 +61,18 @@ p {
   justify-self: center;
 }
 
-@media screen and (max-width: 500px) {
-  .root {
-    padding: 5px;
-  }
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
 }
+
+// @media screen and (max-width: 500px) {
+//   .root {
+//     padding: 5px;
+//   }
+// }
 
 @media print {
   iframe {
@@ -67,3 +82,7 @@ p {
     overflow: hidden;
   }
 }
+
+// * {
+//   outline: 2px solid red;
+// }

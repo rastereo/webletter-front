@@ -3,6 +3,7 @@ import { Heading, Tag } from '@chakra-ui/react';
 import useDocumentTitle from '@shared/lib/useDocumentTitle';
 
 import './NotFound.scss';
+import { ErrorMessage } from '@/widgets/ErrorMessage';
 
 export function NotFound() {
   useDocumentTitle('Page Not Found', true);
@@ -17,9 +18,7 @@ export function NotFound() {
         fontSize="70px"
       >
         404
-        <Tag colorScheme="red" size="lg" fontSize="32px">
-          Page Not Found
-        </Tag>
+        <ErrorMessage message="Page Not Found" />
       </Heading>
     </main>
   );

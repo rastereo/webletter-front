@@ -11,7 +11,11 @@ const theme = extendTheme({
         // padding: '30px 0',
         // maxWidth: '1480px',
         margin: 'auto',
-        height: '100vh'
+        fontSize: {
+          base: '12px',
+          md: '16px',
+          sm: '14px',
+        }
       }
     }
   }

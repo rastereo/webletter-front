@@ -7,6 +7,7 @@ interface IWebletterListSlice {
   isInitialLoadData: boolean;
   count: number;
   totalCount: number;
+  viewMode: 'table' | 'card';
 }
 
 const initialState: IWebletterListSlice = {
@@ -14,6 +15,7 @@ const initialState: IWebletterListSlice = {
   isInitialLoadData: false,
   count: 0,
   totalCount: 0,
+  viewMode: 'table',
 };
 
 export const webletterListSlice = createSlice({
@@ -30,8 +32,12 @@ export const webletterListSlice = createSlice({
     setTotalCount: (state, action: PayloadAction<number>) => {
       state.totalCount = action.payload;
     },
+    setViewMode: (state, action: PayloadAction<'table' | 'card'>) => {
+      state.viewMode = action.payload;
+    },
   },
 });
 
-export const { setList, setTotalCount, setIsInitialLoadData } = webletterListSlice.actions;
+export const { setList, setTotalCount, setIsInitialLoadData, setViewMode } =
+  webletterListSlice.actions;
 export default webletterListSlice.reducer;

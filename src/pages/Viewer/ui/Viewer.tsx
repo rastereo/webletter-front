@@ -74,13 +74,7 @@ export function Viewer() {
 
   useEffect(() => {
     if (!text && isText)
-      getText(
-        id,
-        setText,
-        setMisspelledWords,
-        setStopWords,
-        setErrorMessage
-      );
+      getText(id, setText, setMisspelledWords, setStopWords, setErrorMessage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isText]);
 
@@ -131,7 +125,9 @@ export function Viewer() {
           <ScrollUpButton />
         </>
       ) : errorMessage ? (
-        <ErrorMessage message={errorMessage} />
+        <p className="error">
+          <ErrorMessage message={errorMessage} />
+        </p>
       ) : (
         <Loader />
       )}

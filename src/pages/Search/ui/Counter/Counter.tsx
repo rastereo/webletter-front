@@ -18,7 +18,7 @@ export function Counter({ quantity, text }: CounterProps) {
   const dispatch = useDispatch();
 
   return (
-    <Text fontSize="sm" color="#a4a3a3" padding="0 0 20px">
+    <Text fontSize="sm" color="#a4a3a3" padding="0 0 10px">
       {text}{' '}
       {isStartCounter ? (
         <CountUp

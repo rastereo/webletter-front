@@ -1,3 +1,4 @@
+import { Tag } from '@chakra-ui/react';
 import './ErrorMessage.scss';
 
 interface ErrorMessageProps {
@@ -6,8 +7,8 @@ interface ErrorMessageProps {
 
 export function ErrorMessage({ message }: ErrorMessageProps) {
   return (
-    <div className="error-message">
-      <h1>{message}</h1>
-    </div>
+    <Tag colorScheme="red" size="lg" fontSize="32px" h="100%">
+      {message}
+    </Tag>
   );
 }
