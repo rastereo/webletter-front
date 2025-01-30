@@ -11,27 +11,31 @@ function ViewSwitcher() {
 
   const { viewMode } = useSelector((state: RootState) => state.webletterList);
 
-  function handleChange(value: 'table' | 'card') {
+  function switchViewMode(value: 'table' | 'card') {
     dispatch(setViewMode(value));
+
+    localStorage.setItem('viewMode', value);
   }
 
-  function handleResize() {
+  function setUserViewMode() {
     if (window.innerWidth < 768) {
-      handleChange('card');
+      switchViewMode('card');
+    } else if (localStorage.getItem('viewMode')) {
+      switchViewMode(localStorage.getItem('viewMode') as 'table' | 'card');
     }
   }
 
   useEffect(() => {
-    handleResize();
+    setUserViewMode();
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', setUserViewMode);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', setUserViewMode);
   }, []);
 
   return (
     <RadioGroup
-      onChange={handleChange}
+      onChange={switchViewMode}
       value={viewMode}
       display={{ base: 'none', md: 'block' }}
     >
