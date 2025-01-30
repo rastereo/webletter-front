@@ -24,7 +24,7 @@ function WebletterTest({ id, isHide, size, setIframeElement }: WebletterProps) {
   const webletterUrl =
     process.env.NODE_ENV === 'development'
       ? '../../../test/index.html'
-      : `${import.meta.env.VITE_APP_WEBLETTER_URL}/${id}`;
+      : `${import.meta.env.VITE_APP_HTML_WEBLETTER_URL}/${id}`;
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 

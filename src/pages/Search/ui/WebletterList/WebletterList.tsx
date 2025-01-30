@@ -70,7 +70,7 @@ function WebletterList({ webletterList }: WebletterTableProps) {
                   {banner ? (
                     <img
                       src={`${
-                        import.meta.env.VITE_APP_WEBLETTER_URL
+                        import.meta.env.VITE_APP_HTML_WEBLETTER_URL
                       }/${id}/${banner}`}
                       alt={exhibition ? exhibition : 'Banner'}
                       className={`webletter-list__banner ${

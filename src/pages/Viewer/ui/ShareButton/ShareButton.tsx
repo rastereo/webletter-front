@@ -33,7 +33,7 @@ function ShareButton({ id, handleSavePDFButton }: ShareButton) {
   }${import.meta.env.VITE_APP_WEBLETTERS_PATH}/${id}/download`;
 
   useEffect(
-    () => setValue(`${import.meta.env.VITE_APP_WEBLETTER_URL}/${id}`),
+    () => setValue(`${import.meta.env.VITE_APP_HTML_WEBLETTER_URL}/${id}`),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
