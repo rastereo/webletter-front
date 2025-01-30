@@ -41,6 +41,7 @@ $gapCard: 20px;
     &_position_card {
       box-sizing: border-box;
       background-color: var(--gray);
+      border: none;
       border-radius: var(--border-radius);
       transition: all 0.2s ease-in-out;
 

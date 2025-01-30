@@ -1,4 +1,4 @@
-import { Heading, Tag } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 
 import useDocumentTitle from '@shared/lib/useDocumentTitle';
 
