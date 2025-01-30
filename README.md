@@ -30,7 +30,7 @@ The project utilizes several environment variables for configuration. These shou
 - `VITE_APP_WEBLETTERS_PATH`: The path to access web letter data.
 - `VITE_APP_SEARCH_WEBLETTERS_PATH`: The path for searching web letters.
 - `VITE_APP_WEBLETTER_TEXT_PATH`: The path for accessing the text content of web letters.
-- `VITE_APP_JWT_COOKIE_NAME`: The name of the cookie used to store JWT tokens. -->
+- `VITE_APP_JWT_COOKIE_NAME`: The name of the cookie used to store JWT tokens.
 - `VITE_APP_CREDENTIALS`: Credentials configuration, typically used to manage if credentials like cookies are sent with requests.
 
 Ensure that these variables are properly configured in your environment to enable the application to function as expected.
