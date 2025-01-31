@@ -82,7 +82,7 @@ export function LoginPage() {
               boxShadow="md"
               borderRadius="16px"
             >
-              <FormControl>
+              <FormControl className="ym-hide-content">
                 <InputGroup>
                   <InputLeftElement
                     pointerEvents="none"
@@ -98,10 +98,11 @@ export function LoginPage() {
                       setErrorMessage('');
                     }}
                     required
+                    data-ym-disable-track="true"
                   />
                 </InputGroup>
               </FormControl>
-              <FormControl>
+              <FormControl className="ym-hide-content">
                 <InputGroup>
                   <InputLeftElement
                     pointerEvents="none"

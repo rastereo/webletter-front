@@ -19,7 +19,12 @@ export function Header() {
 
   return (
     <header className="header">
-      <Stack direction="row" alignItems="center" justifySelf="start">
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifySelf="start"
+        className="ym-hide-content"
+      >
         <Avatar name={name} size="sm">
           <AvatarBadge boxSize="1.25em" bg="green.400" />
         </Avatar>
