@@ -2,8 +2,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Input, Select, Stack, Text } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
-// import { UserContext } from '@shared/contexts';
-
 import { ISearchForm } from '@types';
 import { RootState } from '@app/store';
 import { setSelectedFilter } from '@entities/searchConfig';
@@ -11,6 +9,7 @@ import { setSelectedFilter } from '@entities/searchConfig';
 import './SearchForm.scss';
 
 function SearchForm({ onSubmit }: ISearchForm) {
+  // const [];
   const { exhibitionSelectList, langSelectList, rangeDate, selectedFilter } =
     useSelector((state: RootState) => state.searchConfig);
 
@@ -22,9 +21,39 @@ function SearchForm({ onSubmit }: ISearchForm) {
   ) {
     const updatedSelection = { ...selectedFilter };
 
-    updatedSelection[name] = value;
+    if (name === 'startDate' || name === 'endDate') {
+      const dateValue = value ? new Date(value).toISOString() : value;
+
+      updatedSelection[name] = dateValue;
+    } else {
+      updatedSelection[name] = value;
+    }
 
     dispatch(setSelectedFilter(updatedSelection));
+  }
+
+  function getMaxStartDate(): string {
+    let maxStartDate = new Date().toISOString();
+
+    if (selectedFilter.endDate) {
+      maxStartDate = selectedFilter.endDate;
+    } else if (rangeDate.last_upload_date) {
+      maxStartDate = rangeDate.last_upload_date;
+    }
+
+    return maxStartDate.split('T')[0];
+  }
+
+  function getMinEndDate() {
+    let minEndDate = new Date().toISOString();
+
+    if (selectedFilter.startDate) {
+      minEndDate = selectedFilter.startDate;
+    } else if (rangeDate.first_upload_date) {
+      minEndDate = rangeDate.first_upload_date;
+    }
+
+    return minEndDate.split('T')[0];
   }
 
   return (
@@ -83,19 +112,14 @@ function SearchForm({ onSubmit }: ISearchForm) {
         </Text>
         <Input
           type="date"
-          onChange={(e) =>
-            handleSelect('startDate', new Date(e.target.value).toISOString())
-          }
+          value={selectedFilter.startDate.split('T')[0]}
+          onChange={(e) => handleSelect('startDate', e.target.value)}
           min={
             rangeDate.first_upload_date
               ? rangeDate.first_upload_date.split('T')[0]
               : new Date().toISOString()
           }
-          max={
-            rangeDate.last_upload_date
-              ? rangeDate.last_upload_date.split('T')[0]
-              : new Date().toISOString()
-          }
+          max={getMaxStartDate()}
         />
       </Stack>
       <Stack spacing={0} flex="1" width="100%">
@@ -104,14 +128,9 @@ function SearchForm({ onSubmit }: ISearchForm) {
         </Text>
         <Input
           type="date"
-          onChange={(e) =>
-            handleSelect('endDate', new Date(e.target.value).toISOString())
-          }
-          min={
-            rangeDate.first_upload_date
-              ? rangeDate.first_upload_date.split('T')[0]
-              : new Date().toISOString()
-          }
+          value={selectedFilter.endDate.split('T')[0]}
+          onChange={(e) => handleSelect('endDate', e.target.value)}
+          min={getMinEndDate()}
           max={
             rangeDate.last_upload_date
               ? rangeDate.last_upload_date.split('T')[0]
@@ -121,7 +140,7 @@ function SearchForm({ onSubmit }: ISearchForm) {
       </Stack>
       <IconButton
         icon={<SearchIcon />}
-        aria-label="Search webletter"
+        aria-label="Search webletters"
         colorScheme="blue"
         type="submit"
         width={{ base: '100%', md: 'auto', xl: 'auto' }}

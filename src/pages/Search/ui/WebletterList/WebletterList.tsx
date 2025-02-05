@@ -21,7 +21,7 @@ function WebletterList({ webletterList }: WebletterTableProps) {
   function createLocalDateString(uploadDate: string): string {
     const newDate = new Date(uploadDate);
 
-    const time = newDate.toLocaleDateString().slice(0, -3);
+    const time = newDate.toLocaleTimeString().slice(0, 5);
     const date = newDate.toLocaleDateString();
 
     return `${time} ${date}`;

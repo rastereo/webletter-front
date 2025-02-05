@@ -43,6 +43,12 @@ export const searchConfigSlice = createSlice({
     setSelectedFilter: (state, action: PayloadAction<ISelectedFilter>) => {
       state.selectedFilter = action.payload;
     },
+    setStartDate: (state, action: PayloadAction<string>) => {
+      state.selectedFilter.startDate = action.payload;
+    },
+    setEndDate: (state, action: PayloadAction<string>) => {
+      state.selectedFilter.endDate = action.payload;
+    },
     setIsStartCounter: (state, action: PayloadAction<boolean>) => {
       state.isStartCounter = action.payload;
     },
@@ -54,6 +60,8 @@ export const {
   setLangSelectList,
   setRangeDate,
   setSelectedFilter,
+  setStartDate,
+  setEndDate,
   setIsStartCounter,
 } = searchConfigSlice.actions;
 export default searchConfigSlice.reducer;

@@ -16,6 +16,7 @@ import useDocumentTitle from '@shared/lib/useDocumentTitle';
 import { ISelectedFilter } from '@types';
 
 import './Search.scss';
+import { setEndDate, setStartDate } from '@/entities/searchConfig';
 
 export function Search() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -24,11 +25,13 @@ export function Search() {
     (state: RootState) => state.webletterList
   );
 
+  const { rangeDate } = useSelector((state: RootState) => state.searchConfig);
+
   const dispatch = useDispatch();
 
   useDocumentTitle('Webletters', true);
 
-  function handleSubmit(
+  async function handleSubmit(
     evt: FormEvent<HTMLFormElement>,
     selectedFilter: ISelectedFilter
   ) {
@@ -36,10 +39,16 @@ export function Search() {
 
     dispatch(setList([]));
 
+    if (!selectedFilter.startDate && selectedFilter.endDate) {
+      await dispatch(setStartDate(rangeDate.first_upload_date));
+    } else if (selectedFilter.startDate && !selectedFilter.endDate) {
+      await dispatch(setEndDate(rangeDate.last_upload_date));
+    }
+
     if (Object.values(selectedFilter).every((value) => value === '')) {
       getLastWebletters(setErrorMessage, dispatch);
     } else {
-      searchWebletters(selectedFilter, setErrorMessage, dispatch);
+      await searchWebletters(selectedFilter, setErrorMessage, dispatch);
     }
   }
 
