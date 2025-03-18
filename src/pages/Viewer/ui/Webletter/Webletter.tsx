@@ -7,6 +7,9 @@ import { RootState } from '@/app/store';
 
 import './Webletter.scss';
 
+import { IconButton } from '@chakra-ui/react';
+import { LuImageOff, LuImage } from 'react-icons/lu';
+
 interface WebletterProps {
   id: string;
   isHide: boolean;
@@ -18,12 +21,16 @@ interface WebletterProps {
 
 function WebletterTest({ id, isHide, size, setIframeElement }: WebletterProps) {
   const [iframeDoc, setIframeDoc] = useState<Document | null>(null);
+  const [imageList, setImageList] =
+    useState<NodeListOf<HTMLImageElement> | null>(null);
+  const [imageSrcList, setImageSrcList] = useState<string[]>([]);
+  const [isRemoveImages, setIsRemoveImages] = useState<boolean>(false);
 
   const { isDarkMode } = useSelector((state: RootState) => state.user);
 
   const webletterUrl =
     process.env.NODE_ENV === 'development'
-      ? '../../../test/index.html'
+      ? '../../../test/TTR.html'
       : `${import.meta.env.VITE_APP_HTML_WEBLETTER_URL}/${id}`;
 
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
@@ -66,19 +73,44 @@ function WebletterTest({ id, isHide, size, setIframeElement }: WebletterProps) {
     setIframeElement(iframeRef);
   }
 
+  function removeImageSrc() {
+    if (imageList) {
+      const srcList: string[] = [];
+
+      imageList.forEach((image) => {
+        srcList.push(image.src);
+
+        image.src = '';
+      });
+
+      setImageSrcList(srcList);
+      setIsRemoveImages(true);
+    }
+  }
+
+  function restoreImageSrc() {
+    if (imageSrcList || imageList) {
+      imageList?.forEach((image, index) => {
+        image.src = imageSrcList[index];
+      });
+
+      setIsRemoveImages(false);
+    }
+  }
+
   useEffect(() => {
     if (iframeDoc) {
       const script = iframeDoc.createElement('script');
       script.src =
-        'https://cdn.jsdelivr.net/npm/darkreader@4.9.96/darkreader.min.js';
+        'https://cdn.jsdelivr.net/npm/darkreader@4.9.105/darkreader.min.js';
 
       iframeDoc.head.appendChild(script);
 
       resizeIFrameToFirContent(iframeRef, iframeDoc);
       script.onload = () => toggleDarkModeOnWebletter(isDarkMode);
-    }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      setImageList(iframeDoc.querySelectorAll('img'));
+    }
   }, [iframeDoc]);
 
   useEffect(() => {
@@ -91,8 +123,7 @@ function WebletterTest({ id, isHide, size, setIframeElement }: WebletterProps) {
     if (!isHide) {
       resizeIFrameToFirContent(iframeRef, iframeDoc);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [size]);
+  }, [size, isRemoveImages]);
 
   return (
     <section className={`webletter ${isHide && 'hide'}`}>
@@ -109,6 +140,19 @@ function WebletterTest({ id, isHide, size, setIframeElement }: WebletterProps) {
           ссылке
         </Link>
       </p>
+      <IconButton
+        variant={'outline'}
+        colorScheme={isRemoveImages ? 'green' : 'red'}
+        aria-label={isRemoveImages ? 'Restore Images' : 'Remove Images'}
+        size="lg"
+        fontSize="25px"
+        icon={isRemoveImages ? <LuImage /> : <LuImageOff />}
+        position={'absolute'}
+        top="5px"
+        right="5px"
+        border="none"
+        onClick={isRemoveImages ? restoreImageSrc : removeImageSrc}
+      />
     </section>
   );
 }
